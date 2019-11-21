@@ -2,6 +2,7 @@
 <html>
 <head>
 	<link rel="stylesheet" href="fantasy.css">
+	<script src="fantasy.js"></script>
 </head>
 <title>
 FRC FANTASY: PLAY WITH YOUR FRIENDS TO SEE WHOSE TEAM IS BETTER
@@ -10,8 +11,34 @@ FRC FANTASY: PLAY WITH YOUR FRIENDS TO SEE WHOSE TEAM IS BETTER
 		<button class="dropbtn">Social Media</button>
 		<div class="dropdown-content">
 			<a href="https://www.google.com">Google</a>
-				<a href="https://www.facebook.com">Facebook</a>
-				<a href="https://www.youtube.com">YouTube</a>
+			<a href="https://www.facebook.com">Facebook</a>
+			<a href="https://www.youtube.com">YouTube</a>
+		</div>
+		<div class="tab">
+			<button class="tablinks" onclick="openCity(event, 'My Team')">My Team</button>
+			<button class="tablinks" onclick="openCity(event, 'Game Center')">Game Center</button>
+			<button class="tablinks" onclick="openCity(event, 'Account')">Account</button>
+			<button class="tablinks" onclick="openCity(event, 'Teams')">Teams</button>
+		</div>
+		
+		<div id="My Team" class="tabcontent">
+			<h3>My Team</h3>
+			<p>Change which teams are in your alliance.</p>
+		</div>
+		
+		<div id="Game Center" class="tabcontent">
+			<h3>Game Center</h3>
+			<p>Check your points and stats for this competition.</p> 
+		</div>
+		
+		<div id="Account" class="tabcontent">
+			<h3>Account</h3>
+			<p>Change your account settings.</p>
+		</div>
+		
+		<div id="Teams" class="tabcontent">
+			<h3>Teams</h3>
+			<p>Check other people's teams.</p>
 		</div>
 	</div>
 </body>
