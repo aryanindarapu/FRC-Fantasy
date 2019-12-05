@@ -1,3 +1,6 @@
+function onload() {
+	document.getElementById("myTeamButt").click();
+}
 function openCity(evt, cityName) {
 	var i, tabcontent, tablinks;
 	tabcontent = document.getElementsByClassName("tabcontent");
