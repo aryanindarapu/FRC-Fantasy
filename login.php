@@ -5,10 +5,11 @@ $loggedIn = false;
 if(isset($_POST['username'])){
 	$username = $_POST['username'];
 	$password = $_POST['password'];
-	
-	preg_match('(\w+)@(gmail|yahoo|icloud|hotmail|outlook|aol)(\.com|\.net)', $username, $matches, PREG_UNMATCHED_AS_NULL);
+
 	$email = true;
-	if($matches[0] == null) {
+	if(preg_match('(\w+)@(gmail|yahoo|icloud|hotmail|outlook|aol)(\.com|\.net)', $username)) {
+		$email = true;
+	} else {
 		$email = false;
 	}
 	$hashed_password = hash('whirlpool', $password);
@@ -28,7 +29,7 @@ if(isset($_POST['username'])){
 	$result = mysqli_query($conn, $query);
 	
 	if(mysqli_num_rows($result) === 0) {
-		$error = "No Results. Is your username/password correct?";
+		$error = "Incorrect Username and/or Password";
 	} else {
 		$row = mysqli_fetch_assoc($result);
 		

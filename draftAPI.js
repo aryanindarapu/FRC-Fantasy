@@ -11,7 +11,18 @@ function getEventInfo(event_code) {
 }
 
 function getTeamEvents(teamnum) {
-	
+	var append = 'team/frc' + teamnum + '/events';
+	var url = base + append;
+	$.ajaxSetup({
+		headers : {
+			'X-TBA-Auth-Key':sEcReT_cOdE,
+			'accept':'application/json'
+		}
+	});
+	$.getJSON(url,
+		teamEventsSuccess,
+		defaultError);
+	return data;
 }
 
 /*  - Award Documentation
@@ -154,4 +165,16 @@ function teamAwardsSuccess(success) {
 		awards[i] = award;
 	}
 	data = awards;
+}
+function teamEventsSuccess(success) {
+	var len = success.length;
+	var events =[];
+	for(var i = 0; i < len; i++) {
+		var evnt = {
+			key: success[i].key;
+		};
+		events[i] = evnt;
+	}
+	data = events;
+	
 }
