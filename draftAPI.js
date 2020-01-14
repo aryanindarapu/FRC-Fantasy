@@ -2,6 +2,15 @@ var sEcReT_cOdE = 'VG6oKsnz6E2EheeIFFkZwHjcAT66vwpttZTXWmXyPOSMyjmRyrA9Q5I8cUeiZ
 var base = 'https://cors-anywhere.herokuapp.com/'+ 'https://www.thebluealliance.com/api/v3/';
 var data = [];
 
+var averageOPRS;
+
+
+function wait(ms) {
+	var d = new Date();
+	var d2 = null;
+	do { d2 = new Date(); }
+	while(d2-d < ms);
+}
 
 //ALL BLUE ALLIANCE STUFF HERE https://www.thebluealliance.com/apidocs/v3
 //Get Functions
@@ -9,7 +18,23 @@ function getEventInfo(event_code) {
 	
 	
 }
+console.log(getAverageOPRS(868));
+function getAverageOPRS(teamnum) {
+	getTeamEvents(teamnum);
+	wait(10000);
+	var events = data;
+	var sum = 0.00;
+	var total = events.length;
+	for(var i = 0; i < events.length; i++){
+		sum += getTeamsOPRS(teamnum, events[i].key);
 
+		wait(30);
+				console.log(sum);
+	}
+	sum = sum/total;
+	console.log(sum);
+	return sum;
+}
 function getTeamEvents(teamnum) {
 	var append = 'team/frc' + teamnum + '/events';
 	var url = base + append;
@@ -86,6 +111,19 @@ function getListOfEventsByYear(year) {
    - yourVar.oprs[0].team -> first team's id (as String)
    - yourVar.oprs[0].oprs -> first team's DPRS 
 */
+
+function getTeamsOPRS(teamnum, eventkey) {
+	var teamid = 'frc' + teamnum;
+	getEventOPRS(eventkey);
+	wait(10);
+	var op = data.oprs;
+	var oprs;
+	for(var i = 0; i < op.length; i++) {
+		if(op[i].team == teamid) {
+			return op[i].oprs;
+		}
+	}		
+}
 function getEventOPRS(event_key) {
 	var append = 'event/' + event_key + '/oprs';
 	var url = base + append;
