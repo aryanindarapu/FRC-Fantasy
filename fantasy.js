@@ -1,16 +1,32 @@
-function onload() {
-	document.getElementById("myTeamButt").click();
-}
-function openCity(evt, cityName) {
-	var i, tabcontent, tablinks;
-	tabcontent = document.getElementsByClassName("tabcontent");
-	for (i = 0; i < tabcontent.length; i++) {
-		tabcontent[i].style.display = "none";
+function menufunction() {
+	if(getComputedStyle(document.getElementById("home"),null).display == "block") { 
+		console.log("Success!");
+		document.getElementById("home").style.display = "none";
+		document.getElementById("team").style.display = "none";
+		document.getElementById("league").style.display = "none";
+		document.getElementById("teams").style.display = "none";
+		document.getElementById("register").style.display = "none";
+		document.getElementById("login").style.display = "none";
+		document.getElementById("navbar").style.minHeight = "81px";
+		document.getElementById("navbar").style.height = "81px";
+		document.getElementById("menubartextbottom").innerHTML = "&#9586&#9585";
+		document.getElementById("n2").style.display = "block";
+		document.getElementById("navLogoMobile").style.display = "block";
+	} else if(getComputedStyle(document.getElementById("home"),null).display == "none") { 
+		console.log("Success!");
+		document.getElementById("home").style.display = "block";
+		document.getElementById("team").style.display = "block";
+		document.getElementById("league").style.display = "block";
+		document.getElementById("teams").style.display = "block";
+		document.getElementById("register").style.display = "block";
+		document.getElementById("login").style.display = "block";
+		document.getElementById("navbar").style.minHeight = "250px";
+		document.getElementById("menubartextbottom").innerHTML = "&#9585&#9586";
+        document.getElementById("n2").style.display = "none";
+		document.getElementById("navLogoMobile").style.display = "none";
+	} else {
+		console.log("Failed");
 	}
-	tablinks = document.getElementsByClassName("tablinks");
-	for (i = 0; i < tablinks.length; i++) {
-		tablinks[i].className = tablinks[i].className.replace(" active", "");
-	}
-	document.getElementById(cityName).style.display = "block";
-	evt.currentTarget.className += " active";
+
+
 }
