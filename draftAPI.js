@@ -171,7 +171,7 @@ function teamEventsSuccess(success) {
 	var events =[];
 	for(var i = 0; i < len; i++) {
 		var evnt = {
-			key: success[i].key;
+			key: success[i].key
 		};
 		events[i] = evnt;
 	}
