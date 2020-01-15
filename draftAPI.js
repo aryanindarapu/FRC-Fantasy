@@ -214,6 +214,7 @@ function getFRCTeamSuccess(data) {
 			teamKey.innerHTML = key;
 		}
 	}
+	
 	function getFRCTeamError(error) {
 		console.log(error);
 	}

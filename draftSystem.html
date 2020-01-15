@@ -54,7 +54,7 @@
 <div class="nav">
 	<nav>
 		<ul>
-			<li onclick="showThisYearsTeams()">
+			<li onclick="getThisYearsTeams()">
 				This Years Teams
 			</li>
 			<li onclick="search()">
@@ -82,13 +82,6 @@
 
 	<script>
 	
-	
-	
-	
-	function showThisYearsTeams() {
-		document.getElementById('searchData').style.display = "none";
-		document.getElementById('currentTeams').style.display = "block";
-	}
 	function search() {
 		document.getElementById('currentTeams').style.display = "none";
 		$("#searchData").empty();
