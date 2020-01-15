@@ -1,9 +1,9 @@
 var sEcReT_cOdE = 'VG6oKsnz6E2EheeIFFkZwHjcAT66vwpttZTXWmXyPOSMyjmRyrA9Q5I8cUeiZTeJ';
 var base = 'https://cors-anywhere.herokuapp.com/'+ 'https://www.thebluealliance.com/api/v3/';
 var data = [];
-
+var o
 var averageOPRS;
-
+var temps;
 
 function wait(ms) {
 	var d = new Date();
@@ -18,23 +18,28 @@ function getEventInfo(event_code) {
 	
 	
 }
-console.log(getAverageOPRS(868));
+/**
+ * Returns the average OPR of the team called in
+*/
 function getAverageOPRS(teamnum) {
 	getTeamEvents(teamnum);
-	wait(10000);
 	var events = data;
 	var sum = 0.00;
 	var total = events.length;
+	console.log("events length = " + total);
+	console.log("events :" + events);
 	for(var i = 0; i < events.length; i++){
 		sum += getTeamsOPRS(teamnum, events[i].key);
-
-		wait(30);
-				console.log(sum);
+		console.log(sum);
 	}
 	sum = sum/total;
 	console.log(sum);
 	return sum;
 }
+
+/**
+ * Will Get the Key of every event this team has been to as an array
+*/
 function getTeamEvents(teamnum) {
 	var append = 'team/frc' + teamnum + '/events';
 	var url = base + append;
@@ -44,10 +49,29 @@ function getTeamEvents(teamnum) {
 			'accept':'application/json'
 		}
 	});
-	$.getJSON(url,
-		teamEventsSuccess,
-		defaultError);
-	return data;
+	var file = $.getJSON(url),
+		checker = $.when(file);
+	//Get JSON Cases Here
+	checker.done(function() {
+		var len = success.length;
+		var events =[];
+		for(var i = 0; i < len; i++) {
+			var evnt = {
+				key: success[i].key
+			};
+			events[i] = evnt;
+		}
+		temps = events;
+	});
+	checker.fail(function() {
+		console.log("Failed retrieving Team Events Data");
+	});
+	//When implementing Loading use an always method
+	checker.always(function() {
+		//We should implement loading here later, ill figure out how.
+	});
+	
+	return temps;
 }
 
 /*  - Award Documentation
@@ -114,10 +138,11 @@ function getListOfEventsByYear(year) {
 
 function getTeamsOPRS(teamnum, eventkey) {
 	var teamid = 'frc' + teamnum;
-	getEventOPRS(eventkey);
+	await getEventOPRS(eventkey);
 	wait(10);
 	var op = data.oprs;
 	var oprs;
+	
 	for(var i = 0; i < op.length; i++) {
 		if(op[i].team == teamid) {
 			return op[i].oprs;
@@ -139,7 +164,64 @@ function getEventOPRS(event_key) {
 	return data;
 }
 
+function getThisYearsTeams() {
+	var urlstuff = 'https://cors-anywhere.herokuapp.com/'+ 'https://www.thebluealliance.com/api/v3/district/2020in/teams';
+	$(document).ready(function() {
+		$.ajaxSetup({
+			headers : {
+				'X-TBA-Auth-Key':'VG6oKsnz6E2EheeIFFkZwHjcAT66vwpttZTXWmXyPOSMyjmRyrA9Q5I8cUeiZTeJ',
+				'accept':'application/json'
+			}
+		});
+		$.getJSON(urlstuff,
+			getFRCTeamSuccess,
+			getFRCTeamError);
+	});
+}
 
+function getFRCTeamSuccess(data) {
+		var table = document.getElementById('results-table');
+		table.innerHTML = "";
+		table.style.display = "block";
+		
+		//Insert Header
+		var row = table.insertRow(0);
+		var nickname = row.insertCell(0);
+		var joined = row.insertCell(1);
+		var website = row.insertCell(2);
+		var teamKey = row.insertCell(3);
+		var pickTeam = row.insertCell(4);
+		
+		nickname.innerHTML = "Nickname";
+		joined.innerHTML = "Joined";
+		website.innerHTML = "Website";
+		teamKey.innerHTML = "Team Key";
+		pickTeam.innerHTML = "Pick Team"; 
+		
+		for(var i = 0; i < data.length; i++) {
+			var key = data[i].key;
+		    var nick = data[i].nickname;
+			var web = data[i].website;
+			var join = data[i].rookie_year;
+			
+			row = table.insertRow(i+1);
+			nickname = row.insertCell(0);
+			joined = row.insertCell(1);
+			website = row.insertCell(2);
+			teamKey = row.insertCell(3);
+			pickTeam = row.insertCell(4);
+			
+			nickname.innerHTML = nick;
+			joined.innerHTML = join;
+			website.innerHTML = web;
+			teamKey.innerHTML = key;
+			pickTeam.innerHTML = "<button></button>"
+		}
+	}
+	
+	function getFRCTeamError(error) {
+		console.log(error);
+	}
 
 
 

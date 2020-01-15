@@ -81,62 +81,6 @@
 
 
 	<script>
-	var url = 'https://cors-anywhere.herokuapp.com/'+ 'https://www.thebluealliance.com/api/v3/district/2020in/teams';
-	$(document).ready(function() {
-		$.ajaxSetup({
-			headers : {
-				'X-TBA-Auth-Key':'VG6oKsnz6E2EheeIFFkZwHjcAT66vwpttZTXWmXyPOSMyjmRyrA9Q5I8cUeiZTeJ',
-				'accept':'application/json'
-			}
-		});
-		$.getJSON(url,
-			getFRCTeamSuccess,
-			getFRCTeamError);
-	});
-	
-	
-	function getFRCTeamSuccess(data) {
-		var table = document.getElementById('results-table');
-		table.innerHTML = "";
-		table.style.display = "block";
-		
-		//Insert Header
-		var row = table.insertRow(0);
-		var nickname = row.insertCell(0);
-		var joined = row.insertCell(1);
-		var website = row.insertCell(2);
-		var teamKey = row.insertCell(3);
-		var pickTeam = row.insertCell(4);
-		
-		nickname.innerHTML = "Nickname";
-		joined.innerHTML = "Joined";
-		website.innerHTML = "Website";
-		teamKey.innerHTML = "Team Key";
-		pickTeam.innerHTML = "Pick Team"; 
-		
-		for(var i = 0; i < data.length; i++) {
-			var key = data[i].key;
-		    var nick = data[i].nickname;
-			var web = data[i].website;
-			var join = data[i].rookie_year;
-			
-			row = table.insertRow(i+1);
-			nickname = row.insertCell(0);
-			joined = row.insertCell(1);
-			website = row.insertCell(2);
-			teamKey = row.insertCell(3);
-			pickTeam = row.insertCell(4);
-			
-			nickname.innerHTML = nick;
-			joined.innerHTML = join;
-			website.innerHTML = web;
-			teamKey.innerHTML = key;
-			pickTeam.innerHTML = "<button></button>"
-		}
-	}
-	function getFRCTeamError(error) {
-		console.log(error);
-	}
 	function showThisYearsTeams() {
 		document.getElementById('searchData').style.display = "none";
 		document.getElementById('currentTeams').style.display = "block";
@@ -285,6 +229,11 @@
 			ends.innerHTML = data[i].end_date;
 		}
 
+	}
+	async function testStuff() {
+	
+		var oprstuff = await getAverageOPRS(868);
+		console.log(oprstuff);
 	}
 	</script>
 </body>
