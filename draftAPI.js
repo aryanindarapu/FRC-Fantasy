@@ -53,11 +53,11 @@ function getTeamEvents(teamnum) {
 		checker = $.when(file);
 	//Get JSON Cases Here
 	checker.done(function() {
-		var len = success.length;
+		var len = file.length;
 		var events =[];
 		for(var i = 0; i < len; i++) {
 			var evnt = {
-				key: success[i].key
+				key: file[i].key
 			};
 			events[i] = evnt;
 		}
@@ -138,7 +138,7 @@ function getListOfEventsByYear(year) {
 
 function getTeamsOPRS(teamnum, eventkey) {
 	var teamid = 'frc' + teamnum;
-	await getEventOPRS(eventkey);
+	getEventOPRS(eventkey);
 	wait(10);
 	var op = data.oprs;
 	var oprs;
@@ -158,7 +158,7 @@ function getEventOPRS(event_key) {
 				'accept':'application/json'
 			}
 		});
-	$.getJSON(url,
+	var file = $.getJSON(url,
 		eventOPRSSuccess,
 		defaultError);
 	return data;
