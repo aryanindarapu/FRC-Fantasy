@@ -22,19 +22,37 @@ function getEventInfo(event_code) {
  * Returns the average OPR of the team called in
 */
 function getAverageOPRS(teamnum) {
-	getTeamEvents(teamnum);
-	var events = data;
-	var sum = 0.00;
-	var total = events.length;
-	console.log("events length = " + total);
-	console.log("events :" + events);
-	for(var i = 0; i < events.length; i++){
-		sum += getTeamsOPRS(teamnum, events[i].key);
-		console.log(sum);
-	}
-	sum = sum/total;
-	console.log(sum);
-	return sum;
+	$.ajaxSetup({
+		headers : {
+			'X-TBA-Auth-Key':sEcReT_cOdE,
+			'accept':'application/json'
+		}
+	});
+	var append = 'team/frc' + teamnum + '/events';
+	var url = base + append;
+	var file = $.getJSON(url),
+		checker = $.when(file);
+		
+	checker.done(function() {
+		var len = file.length;
+		var events =[];
+		for(var i = 0; i < len; i++) {
+			var evnt = {
+				key: file[i].key
+			};
+			events[i] = evnt;
+		}
+		for(var i = 0; i < events.length; i++) {
+			
+		}
+	});
+	checker.fail(function() {
+		console.log("Failed retrieving Team Events Data");
+	});
+	//When implementing Loading use an always method
+	checker.always(function() {
+		//We should implement loading here later, ill figure out how.
+	});
 }
 
 /**
