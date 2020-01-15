@@ -21,38 +21,20 @@ function getEventInfo(event_code) {
 /**
  * Returns the average OPR of the team called in
 */
-function getAverageOPRS(teamnum) {
-	$.ajaxSetup({
-		headers : {
-			'X-TBA-Auth-Key':sEcReT_cOdE,
-			'accept':'application/json'
-		}
-	});
-	var append = 'team/frc' + teamnum + '/events';
-	var url = base + append;
-	var file = $.getJSON(url),
+function getStatus(){
+	var file = $.getJSON("databases/status.json"),
 		checker = $.when(file);
-		
 	checker.done(function() {
-		var len = file.length;
-		var events =[];
-		for(var i = 0; i < len; i++) {
-			var evnt = {
-				key: file[i].key
-			};
-			events[i] = evnt;
-		}
-		for(var i = 0; i < events.length; i++) {
-			
-		}
+		console.log(file.response);
 	});
-	checker.fail(function() {
-		console.log("Failed retrieving Team Events Data");
+}
+function getAverageOPRS(teamnum) {
+	var file = $.getJSON("databases/AverageOPRS.json"),
+		checker = $.when(file);
+	checker.done(function() {
+			//Update Table Fields with Average OPR for the team;
 	});
-	//When implementing Loading use an always method
-	checker.always(function() {
-		//We should implement loading here later, ill figure out how.
-	});
+	
 }
 
 /**
