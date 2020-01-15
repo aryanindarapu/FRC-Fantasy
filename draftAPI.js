@@ -190,13 +190,11 @@ function getFRCTeamSuccess(data) {
 		var joined = row.insertCell(1);
 		var website = row.insertCell(2);
 		var teamKey = row.insertCell(3);
-		var pickTeam = row.insertCell(4);
 		
 		nickname.innerHTML = "Nickname";
 		joined.innerHTML = "Joined";
 		website.innerHTML = "Website";
 		teamKey.innerHTML = "Team Key";
-		pickTeam.innerHTML = "Pick Team"; 
 		
 		for(var i = 0; i < data.length; i++) {
 			var key = data[i].key;
@@ -209,13 +207,11 @@ function getFRCTeamSuccess(data) {
 			joined = row.insertCell(1);
 			website = row.insertCell(2);
 			teamKey = row.insertCell(3);
-			pickTeam = row.insertCell(4);
 			
 			nickname.innerHTML = nick;
 			joined.innerHTML = join;
 			website.innerHTML = web;
 			teamKey.innerHTML = key;
-			pickTeam.innerHTML = "<button></button>"
 		}
 	}
 	
