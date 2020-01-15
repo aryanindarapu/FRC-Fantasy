@@ -207,31 +207,38 @@ function getFRCTeamSuccess(data) {
 		var nickname = row.insertCell(0);
 		var joined = row.insertCell(1);
 		var website = row.insertCell(2);
-		var teamKey = row.insertCell(3);
+		var teamNum = row.insertCell(3);
+		var pickTeam = row.insertCell(4);
 		
 		nickname.innerHTML = "Nickname";
 		joined.innerHTML = "Joined";
 		website.innerHTML = "Website";
-		teamKey.innerHTML = "Team Key";
+		teamNum.innerHTML = "Team #";
+		pickTeam.innerHTML = "Pick Team";
 		
 		for(var i = 0; i < data.length; i++) {
 			var key = data[i].key;
 		    var nick = data[i].nickname;
 			var web = data[i].website;
 			var join = data[i].rookie_year;
+			var teamnum = data[i].team_number;
 			
 			row = table.insertRow(i+1);
 			nickname = row.insertCell(0);
 			joined = row.insertCell(1);
 			website = row.insertCell(2);
-			teamKey = row.insertCell(3);
+			teamNum = row.insertCell(3);
+			pickTeam = row.insertCell(4);
 			
 			nickname.innerHTML = nick;
 			joined.innerHTML = join;
 			website.innerHTML = web;
-			teamKey.innerHTML = key;
+			teamNum.innerHTML = teamnum;
+			pickTeam.innerHTML = "<button onclick=\"draftAnnouncement(this)\">Pick</button>";
 		}
 	}
+	
+
 	
 	function getFRCTeamError(error) {
 		console.log(error);

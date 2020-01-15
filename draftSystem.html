@@ -227,6 +227,11 @@
 		}
 
 	}
+		function  draftAnnouncement(elementId) {
+		var row = elementId.parentNode.parentNode.rowIndex;
+		var teamNum = document.getElementById("results-table").rows[row].cells[3].innerHTML;
+		alert("You have drafted team " + teamNum);
+	}
 	console.log(getTeamEvents(868));
 	
 	</script>
