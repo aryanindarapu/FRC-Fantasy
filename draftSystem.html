@@ -227,13 +227,21 @@
 		}
 
 	}
-		function  draftAnnouncement(elementId) {
+	
+	function  draftAnnouncement(elementId) {
 		var row = elementId.parentNode.parentNode.rowIndex;
 		var teamNum = document.getElementById("results-table").rows[row].cells[3].innerHTML;
+		document.getElementById("results-table").deleteRow(row);
 		alert("You have drafted team " + teamNum);
+		var table = document.getElementById("results-table");
+		var length = document.getElementById("results-table").rows.length;
+		for(var i = 0; i < length; i++) {
+			var r = table.rows[i];
+			r.deleteCell(4);
+		}
 	}
-	console.log(getTeamEvents(868));
 	
+	console.log(getTeamEvents(868));
 	</script>
 </body>
 </html>
