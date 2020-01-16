@@ -46,7 +46,7 @@ if(isset($_POST['username'])){
 
 ?>
 <script>
-	var username = "<?php echo $username; ?>";
+	username = "<?php echo $username; ?>";
 	alert(username);
 </script>
 <html>
