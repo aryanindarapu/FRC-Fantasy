@@ -7,7 +7,7 @@ if(isset($_POST['username'])){
 	$password = $_POST['password'];
 
 	$email = true;
-	if(preg_match('(\w+)@(gmail|yahoo|icloud|hotmail|outlook|aol)(\.com|\.net)', $username)) {
+	if(preg_match('~(\w+)@(gmail|yahoo|icloud|hotmail|outlook|aol)(\.com|\.net)~', $username)) {
 		$email = true;
 	} else {
 		$email = false;
