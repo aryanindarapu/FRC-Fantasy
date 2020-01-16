@@ -29,25 +29,28 @@ function getStatus(){
 		console.log(file.response);
 	});
 }
+function getAverageDPRS(teamnum) {
+	loaded = false;
+	$.getJSON("/FRC%20Fantasy/databases/AverageDPRS.json",function(dat) {
+		var keys = Object.keys(dat);
+		for(var i = 0; i < keys.length; i++) {
+			if(keys[i] == ("frc" + teamnum)) {
+				return dat[keys[i]];
+			}
+		}
+	}, defaultError);
+}
 function getAverageOPRS(teamnum) {
-	console.log("loaded");
 	loaded = false;
 	$.getJSON("/FRC%20Fantasy/databases/AverageOPRS.json",function(dat){
 		var keys = Object.keys(dat);
 	for(var i = 0; i < keys.length; i++) {
 		if(keys[i] == ("frc" + teamnum)) {
-			console.log(dat[keys[i]]);
 			return dat[keys[i]];
 		}
 	}
 	},defaultError);
-	console.log(loaded);
 	
-	/*while(!loaded){
-		console.log("1");
-	}
-	*/
-	console.log("123");
 	
 	
 }
