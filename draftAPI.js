@@ -4,7 +4,7 @@ var data = [];
 var o
 var averageOPRS;
 var temps;
-
+var file;
 var loaded = false;
 function wait(ms) {
 	var d = new Date();
@@ -31,20 +31,16 @@ function getStatus(){
 }
 function getAverageOPRS(teamnum) {
 	loaded = false;
-	var file = $.getJSON("databases/AverageOPRS.json"),
-		checker = $.when(file);
-	checker.done(function() {
-			//Update Table Fields with Average OPR for the team;
-			loaded = true;
-	});
+	$.getJSON("databases/AverageOPRS.json",averageOPRSSuccess,defaultError);
+	
 	
 	while(!loaded){
-		//Loading Stuff Here
-		wait(10);
+		
 	}
 	var keys = Object.keys(file);
 	for(var i = 0; i < keys.length; i++) {
 		if(keys[i] == ("frc" + teamnum)) {
+			console.log(file[keys[i]]);
 			return file[keys[i]];
 		}
 	}
@@ -191,6 +187,11 @@ function getThisYearsTeams() {
 			getFRCTeamSuccess,
 			getFRCTeamError);
 	});
+}
+
+function averageOPRSSuccess(data) {
+	file = data;
+	loaded = true;
 }
 
 function getFRCTeamSuccess(data) {
