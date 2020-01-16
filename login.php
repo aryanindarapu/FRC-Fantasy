@@ -46,8 +46,9 @@ if(isset($_POST['username'])){
 
 ?>
 <script>
-	username = "<?php echo $username; ?>";
-	alert(username);
+	function saveUser() {
+		localStorage.setItem("username",<?php echo $username; ?>)
+	}
 </script>
 <html>
 	<head>
