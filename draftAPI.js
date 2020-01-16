@@ -5,6 +5,7 @@ var o
 var averageOPRS;
 var temps;
 
+var loaded = false;
 function wait(ms) {
 	var d = new Date();
 	var d2 = null;
@@ -29,11 +30,24 @@ function getStatus(){
 	});
 }
 function getAverageOPRS(teamnum) {
+	loaded = false;
 	var file = $.getJSON("databases/AverageOPRS.json"),
 		checker = $.when(file);
 	checker.done(function() {
 			//Update Table Fields with Average OPR for the team;
+			loaded = true;
 	});
+	
+	while(!loaded){
+		//Loading Stuff Here
+		wait(10);
+	}
+	var keys = Object.keys(file);
+	for(var i = 0; i < keys.length; i++) {
+		if(keys[i] == ("frc" + teamnum)) {
+			return file[keys[i]];
+		}
+	}
 	
 }
 
