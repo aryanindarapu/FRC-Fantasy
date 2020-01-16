@@ -45,6 +45,10 @@ if(isset($_POST['username'])){
 }
 
 ?>
+<script>
+	username = "<?php echo $username; ?>";
+	alert(username);
+</script>
 <html>
 	<head>
         <title>Login - FantasyFRC</title>
