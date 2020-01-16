@@ -30,20 +30,25 @@ function getStatus(){
 	});
 }
 function getAverageOPRS(teamnum) {
+	console.log("loaded");
 	loaded = false;
-	$.getJSON("https://techhounds.com/FRC%20Fantasy/databases/AverageOPRS.json",averageOPRSSuccess,defaultError);
-	
-	
-	while(!loaded){
-		
-	}
-	var keys = Object.keys(file);
+	$.getJSON("/databases/AverageOPRS.json",function(dat){
+		var keys = Object.keys(dat);
 	for(var i = 0; i < keys.length; i++) {
 		if(keys[i] == ("frc" + teamnum)) {
-			console.log(file[keys[i]]);
+			console.log(dat[keys[i]]);
 			return file[keys[i]];
 		}
 	}
+	},defaultError);
+	console.log(loaded);
+	
+	/*while(!loaded){
+		console.log("1");
+	}
+	*/
+	console.log("123");
+	
 	
 }
 
@@ -189,8 +194,9 @@ function getThisYearsTeams() {
 	});
 }
 
-function averageOPRSSuccess(data) {
-	file = data;
+function averageOPRSSuccess(succ) {
+	console.log("in average oprs function");
+	file = succ;
 	loaded = true;
 }
 
@@ -261,6 +267,7 @@ function listOfEventsByYearSuccess(success) {
 	data = collector;
 }
 function defaultError(error) {
+	console.log("in default error");
 	console.log(error);
 	data = [];
 }
