@@ -23,7 +23,7 @@ function getEventInfo(event_code) {
  * Returns the average OPR of the team called in
 */
 function getStatus(){
-	var file = $.getJSON("databases/status.json"),
+	var file = $.getJSON("https://techhounds.com/FRC%20Fantasy/databases/AverageOPRS.json"),
 		checker = $.when(file);
 	checker.done(function() {
 		console.log(file.response);
@@ -31,7 +31,7 @@ function getStatus(){
 }
 function getAverageOPRS(teamnum) {
 	loaded = false;
-	$.getJSON("databases/AverageOPRS.json",averageOPRSSuccess,defaultError);
+	$.getJSON("https://techhounds.com/FRC%20Fantasy/databases/AverageOPRS.json",averageOPRSSuccess,defaultError);
 	
 	
 	while(!loaded){
