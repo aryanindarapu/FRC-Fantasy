@@ -37,7 +37,7 @@ function getAverageOPRS(teamnum) {
 	for(var i = 0; i < keys.length; i++) {
 		if(keys[i] == ("frc" + teamnum)) {
 			console.log(dat[keys[i]]);
-			return file[keys[i]];
+			return dat[keys[i]];
 		}
 	}
 	},defaultError);
