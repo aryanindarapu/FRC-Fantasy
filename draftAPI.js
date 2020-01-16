@@ -32,7 +32,7 @@ function getStatus(){
 function getAverageOPRS(teamnum) {
 	console.log("loaded");
 	loaded = false;
-	$.getJSON("/databases/AverageOPRS.json",function(dat){
+	$.getJSON("/FRC%20Fantasy/databases/AverageOPRS.json",function(dat){
 		var keys = Object.keys(dat);
 	for(var i = 0; i < keys.length; i++) {
 		if(keys[i] == ("frc" + teamnum)) {
