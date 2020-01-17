@@ -43,7 +43,7 @@ function getAverageDPRS(teamnum) {
 		}
 	}, defaultError);
 }
-function getTeamOPR(teamnum) {
+function getTeamDPR(teamnum) {
 	var keys = Object.keys(averageDPRS);
 	for(var i = 0; i < keys.length; i++) {
 		if(keys[i] == ("frc" + teamnum)) {
@@ -51,7 +51,7 @@ function getTeamOPR(teamnum) {
 		}
 	}
 }
-function loadOPRS() {
+function loadDPRS() {
 	$.getJSON("/FRC%20Fantasy/databases/AverageDPRS.json",function(stuff) {
 		averageDPRS = stuff;
 	},defaultError);
@@ -243,7 +243,8 @@ function getFRCTeamSuccess(data) {
 		var website = row.insertCell(2);
 		var teamNum = row.insertCell(3);
 		var avgOPR = row.insertCell(4);
-		var pickTeam = row.insertCell(5);
+		var avgDPR = row.insertCell(5);
+		var pickTeam = row.insertCell(6);
 		
 		nickname.innerHTML = "Nickname";
 		joined.innerHTML = "Joined";
@@ -259,6 +260,7 @@ function getFRCTeamSuccess(data) {
 			var join = data[i].rookie_year;
 			var teamnum = data[i].team_number;
 			var oprNum = getTeamOPR(teamnum);
+			var dprNum = getTeamDPR(teamnum);
 			
 			row = table.insertRow(i+1);
 			nickname = row.insertCell(0);
@@ -266,13 +268,15 @@ function getFRCTeamSuccess(data) {
 			website = row.insertCell(2);
 			teamNum = row.insertCell(3);
 			avgOPR = row.insertCell(4);
-			pickTeam = row.insertCell(5);
+			avgDPR = row.insertCell(5);
+			pickTeam = row.insertCell(6);
 			
 			nickname.innerHTML = nick;
 			joined.innerHTML = join;
 			website.innerHTML = web;
 			teamNum.innerHTML = teamnum;
 			avgOPR.innerHTML = oprNum;
+			avgDPR.innerHTML = dprNum;
 			pickTeam.innerHTML = "<button onclick=\"draftAnnouncement(this)\">Pick</button>";
 		}
 	}
