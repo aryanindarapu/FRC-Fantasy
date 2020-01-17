@@ -50,9 +50,6 @@ function getAverageOPRS(teamnum) {
 		}
 	}
 	},defaultError);
-	
-	
-	
 }
 
 /**
@@ -214,12 +211,14 @@ function getFRCTeamSuccess(data) {
 		var joined = row.insertCell(1);
 		var website = row.insertCell(2);
 		var teamNum = row.insertCell(3);
-		var pickTeam = row.insertCell(4);
+		var avgOPR = row.insertCell(4);
+		var pickTeam = row.insertCell(5);
 		
 		nickname.innerHTML = "Nickname";
 		joined.innerHTML = "Joined";
 		website.innerHTML = "Website";
 		teamNum.innerHTML = "Team #";
+		avgOPR.innerHTML = "Average OPR";
 		pickTeam.innerHTML = "Pick Team";
 		
 		for(var i = 0; i < data.length; i++) {
@@ -228,18 +227,21 @@ function getFRCTeamSuccess(data) {
 			var web = data[i].website;
 			var join = data[i].rookie_year;
 			var teamnum = data[i].team_number;
+			var oprNum = getAverageOPRS(teamnum);
 			
 			row = table.insertRow(i+1);
 			nickname = row.insertCell(0);
 			joined = row.insertCell(1);
 			website = row.insertCell(2);
 			teamNum = row.insertCell(3);
-			pickTeam = row.insertCell(4);
+			avgOPR = row.insertCell(4);
+			pickTeam = row.insertCell(5);
 			
 			nickname.innerHTML = nick;
 			joined.innerHTML = join;
 			website.innerHTML = web;
 			teamNum.innerHTML = teamnum;
+			avgOPR.innerHTML = oprNum;
 			pickTeam.innerHTML = "<button onclick=\"draftAnnouncement(this)\">Pick</button>";
 		}
 	}

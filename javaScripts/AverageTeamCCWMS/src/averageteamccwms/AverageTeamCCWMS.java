@@ -71,7 +71,7 @@ public class AverageTeamCCWMS {
         }
         System.out.println("");
         System.out.println(AverageOPRS.toString());
-        PrintWriter writer = new PrintWriter("C:\\Users\\dvpie\\Documents\\AverageCCWMS.json", "UTF-8");
+        PrintWriter writer = new PrintWriter("//var//www//html//FRC Fantasy//databases//AverageCCWMS.json", "UTF-8");
         writer.println(AverageOPRS.toString());
         writer.close();
         
