@@ -51,9 +51,9 @@ if(isset($_POST['username'])){
 <html>
 	<head>
         <title>Login - FantasyFRC</title>
-        <link rel="stylesheet" type="text/css" href="fantasy.css?version=10">
+        <link rel="stylesheet" type="text/css" href="fantasy.css?version=11">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=10"></script>
+		<script src="fantasy.js?version=11"></script>
 	</head>
 	<body style="background-color:#cccccc">
 		<div id="navbar" class="navbar">
@@ -103,7 +103,7 @@ if(isset($_POST['username'])){
                 <input name="username" id="username" type="text" /></br>
                 <label for="password">Password: </label>
                 <input name="password" id="password" type="password" /></br>
-                <input type="submit" value="Log In" />
+                <input type="submit" value="Log In" onclick="loggedIn()"/>
             </form>
         </div>
 	</body>
