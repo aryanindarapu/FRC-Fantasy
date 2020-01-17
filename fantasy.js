@@ -32,7 +32,11 @@ function menufunction() {
 function loggedIn() {
 	if (localStorage.getItem("username") != null) {
 		document.getElementById("login").style.display = "none";
+		document.getElementById("login").childNodes[1].style.display = "none";
 		document.getElementById("register").style.display = "none";
-		document.getElementById("profileName") = localStorage.getItem("username");
+		document.getElementById("register").childNodes[1].style.display = "none";
+		document.getElementById("profile").style.display = "inline-block";
+		document.getElementById("profileName").style.display = "inline-block";
+		document.getElementById("profileName").innerHTML = localStorage.getItem("username");
 	}
 }

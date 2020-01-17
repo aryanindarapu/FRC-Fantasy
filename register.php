@@ -2,9 +2,9 @@
 <html>
 	<head>
 	<title>Register - Fantasy FRC</title>
-	<link rel="stylesheet" type="text/css" href="fantasy.css?version=10">
+	<link rel="stylesheet" type="text/css" href="fantasy.css?version=11">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="fantasy.js?version=10"></script>
+	<script src="fantasy.js?version=11"></script>
 	</head>
 	<body style="background-color:#cccccc">
 		<?php
@@ -66,8 +66,8 @@
 			<div id="login" class="menubar menuBarRight">
 				<a href="https://techhounds.com/FRC%20Fantasy/login.php" class="menubartext">Login</a>
 			</div>
-			<div id="profile" class="menubar menuBarRight">
-				<a id="profileName" href="" class="menubartext"></a>
+			<div id="profile" style="display: none" class="menubar menuBarRight">
+				<p id="profileName" style="display: none" class="menubartext"></p>
 			</div>
 			<div id="n2" class="n2">
 				<img id="navLogoMobile" class="navLogoMobile" src="finalColorFantasyLogo.png?version=1"/>
