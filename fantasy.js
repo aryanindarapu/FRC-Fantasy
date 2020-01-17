@@ -27,6 +27,12 @@ function menufunction() {
 	} else {
 		console.log("Failed");
 	}
+}
 
-
+function loggedIn() {
+	if (localStorage.getItem("username") != null) {
+		document.getElementById("login").style.display = "none";
+		document.getElementById("register").style.display = "none";
+		document.getElementById("profileName") = localStorage.getItem("username");
+	}
 }
