@@ -32,6 +32,7 @@ function getStatus(){
 function getAverageDPRS(teamnum) {
 	loaded = false;
 	$.getJSON("/FRC%20Fantasy/databases/AverageDPRS.json",function(dat) {
+		console.log("loading...");
 		var keys = Object.keys(dat);
 		for(var i = 0; i < keys.length; i++) {
 			if(keys[i] == ("frc" + teamnum)) {
@@ -43,6 +44,8 @@ function getAverageDPRS(teamnum) {
 function getAverageOPRS(teamnum) {
 	loaded = false;
 	$.getJSON("/FRC%20Fantasy/databases/AverageOPRS.json",function(dat){
+		console.log("loading...");
+		console.log(dat);
 		var keys = Object.keys(dat);
 	for(var i = 0; i < keys.length; i++) {
 		if(keys[i] == ("frc" + teamnum)) {
@@ -228,7 +231,7 @@ function getFRCTeamSuccess(data) {
 			var join = data[i].rookie_year;
 			var teamnum = data[i].team_number;
 			var oprNum = getAverageOPRS(teamnum);
-			
+			wait(100);
 			row = table.insertRow(i+1);
 			nickname = row.insertCell(0);
 			joined = row.insertCell(1);
