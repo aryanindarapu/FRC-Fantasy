@@ -46,7 +46,8 @@ if(isset($_POST['username'])){
 
 ?>
 <script>
-		localStorage.setItem("username","<?php echo $username;?>")
+		localStorage.setItem("username","<?php echo $username;?>");
+		document.cookie = "username=" + "<?php echo $username; ?>";
 </script>
 <html>
 	<head>
@@ -92,6 +93,7 @@ if(isset($_POST['username'])){
 		<?php
 			if($loggedIn) {
 				echo "<div class='success'><p>Logged in. Redirecting..</p></div>";
+				header("Location:"."http://www.techhounds.com/FRC%20Fantasy/index.html");
 			} else if($error != null) {
 				echo "<div class='error'><p>".$error."</p></div>";
 			}

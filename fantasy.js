@@ -30,11 +30,11 @@ function menufunction() {
 }
 
 function loggedIn() {
-	if (localStorage.getItem("username") != null) {
-		document.getElementById("login").style.display = "none";
-		document.getElementById("login").childNodes[1].style.display = "none";
-		document.getElementById("register").style.display = "none";
-		document.getElementById("register").childNodes[1].style.display = "none";
+	if (document.cookie != null) {
+		document.getElementById("login").removeChild(document.getElementById("login").childNodes[1]);
+		document.getElementById("login").remove();
+		document.getElementById("register").removeChild(document.getElementById("register").childNodes[1]);
+		document.getElementById("register").remove();
 		document.getElementById("profile").style.display = "inline-block";
 		document.getElementById("profileName").style.display = "inline-block";
 		document.getElementById("profileName").innerHTML = localStorage.getItem("username");
