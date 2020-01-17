@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<?php
+	$loggedIn = false;
+	
+	//libxml_use_internal_errors(true);
+	if (isset($_COOKIE["username"])){
+		$username = $_COOKIE["username"];
+		$loggedIn = true;
+	}
+	
+?>
 <html>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -10,6 +20,15 @@
 		padding: 0;
 		box-sizing: border-box;
 		
+	}
+	table {
+		border-collapse: collapse;
+	}
+	tr {
+		border: 1px solid black;
+	}
+	td {
+		border: 1px solid black;
 	}
 	.nav {
 		display: block;
@@ -42,14 +61,15 @@
 	</style>
 </head>
 <body>
+<script>var loggedIn = "<?php echo $loggedIn; ?>";</script>
 <div class="nav">
 	<nav>
 		<ul>
-			<li onclick="showThisYearsTeams()">
-				This Years Teams
+			<li onclick="getThisYearsTeams()">
+				Draft Teams
 			</li>
 			<li onclick="search()">
-				Search Team History
+				Search Team Info
 			</li>
 			<li onclick="searchEventsByYear()">
 				List Events For Year
@@ -65,46 +85,16 @@
 <br>
 <ul id="currentTeams" style="display:none"></ul>
 <ul id="searchData" style="display:none"></ul>
+<table id="results-table" style="display:none">
+
+<p id="usrVal" style="display:none;"></p>
+</table>
 
 
 	<script>
-	var url = 'https://cors-anywhere.herokuapp.com/'+ 'https://www.thebluealliance.com/api/v3/district/2020in/teams';
-	$(document).ready(function() {
-		$.ajaxSetup({
-			headers : {
-				'X-TBA-Auth-Key':'VG6oKsnz6E2EheeIFFkZwHjcAT66vwpttZTXWmXyPOSMyjmRyrA9Q5I8cUeiZTeJ',
-				'accept':'application/json'
-			}
-		});
-		$.getJSON(url,
-			getFRCTeamSuccess,
-			getFRCTeamError);
-	});
-	
-	
-	function getFRCTeamSuccess(data) {
-		for(var i = 0; i < data.length; i++) {
-
-			var body = document.getElementById('currentTeams');
-			var team_key = data[i].key;
-		    var nickname = data[i].nickname;
-			var website = data[i].website;
-			var joined = data[i].rookie_year;
-			
-			var genOut = team_key + " - " + nickname + " - JOINED: " + joined;
-			var node = document.createElement("LI");
-			var textnode = document.createTextNode(genOut);
-			node.appendChild(textnode);
-			body.appendChild(node);
-		}
-	}
-	function getFRCTeamError(error) {
-		console.log(error);
-	}
-	function showThisYearsTeams() {
-		document.getElementById('searchData').style.display = "none";
-		document.getElementById('currentTeams').style.display = "block";
-	}
+	document.getElementById("usrVal").innerHTML = username;
+	loadOPRS();
+	loadDPRS();
 	function search() {
 		document.getElementById('currentTeams').style.display = "none";
 		$("#searchData").empty();
@@ -126,7 +116,18 @@
 			getTeamInfoError);
 	}
 	function listAwards() {
-		var body = document.getElementById('searchData');
+		var table = document.getElementById('results-table');
+		table.innerHTML = "";
+		table.style.display = "block";
+		var header = table.insertRow(0);
+		var th1 = header.insertCell(0);
+		var th2 = header.insertCell(1);
+		var th3 = header.insertCell(2);
+		
+		th1.innerHTML = "Award Name:";
+		th2.innerHTML = "Event Key:";
+		th3.innerHTML = "Year:";
+		
 		var team = document.getElementById('searchbar').value;
 		$("#searchData").empty();
 		
@@ -136,18 +137,23 @@
 		var data = getTeamAwards(team);
 		
 		for(var i = 0; i < data.length; i++) {
-			var output = "Award: " + data[i].name + "\n";
-			output += "Year: " + data[i].year + " | Event Key: " + data[i].event_key;
+			var row = table.insertRow(i + 1);
+			var awardType = row.insertCell(0);
+			var eventkey = row.insertCell(1);
+			var eyear = row.insertCell(2);
 			
-			var node = document.createElement("LI");
-			var textnode = document.createTextNode(output);
-			node.appendChild(textnode);
-			body.appendChild(node);
+			awardType.innerHTML = data[i].name;
+			eventkey.innerHTML = data[i].event_key;
+			eyear.innerHTML = data[i].year;
 		}
-		body.style.display = "block";
+
 	}
 	function getTeamInfoSuccess(data) {
-		var body = document.getElementById('searchData');
+		var body = document.getElementById('searchData').style.display = "none";
+		document.getElementById('currentTeams').style.display = "none";
+		var table = document.getElementById('results-table');
+		table.innerHTML = "";
+		table.style.display = "block";
 		var key = data.key;
 		var name = data.name;
 		var nickname = data.nickname;
@@ -156,27 +162,31 @@
 		var team_number = data.team_number;
 		var website = data.website;
 		
-		var node = document.createElement("LI");
-			var textnode = document.createTextNode("Name: " + name);
-			node.appendChild(textnode);
-		body.appendChild(node);
-		node = document.createElement("LI");
-		textnode = document.createTextNode("Rookie Year: " + rookie_year);
-		node.appendChild(textnode);
-		body.appendChild(node);
-		node = document.createElement("LI");
-		textnode = document.createTextNode("Nickname: " + nickname);
-		node.appendChild(textnode);
-		body.appendChild(node);
-		node = document.createElement("LI");
-		textnode = document.createTextNode("State Province: " + state_prove);
-		node.appendChild(textnode);
-		body.appendChild(node);
-		node = document.createElement("LI");
-		textnode = document.createTextNode("Website: " + website);
-		node.appendChild(textnode);
-		body.appendChild(node);
-		body.style.display = "block";
+		var row = table.insertRow(0);
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		cell1.innerHTML = "Name";
+		cell2.innerHTML = name;
+		row = table.insertRow(1);
+		cell1 = row.insertCell(0);
+		cell2 = row.insertCell(1);
+		cell1.innerHTML = "Rookie Year";
+		cell2.innerHTML = rookie_year;
+		row = table.insertRow(2);
+		cell1 = row.insertCell(0);
+		cell2 = row.insertCell(1);
+		cell1.innerHTML = "Nickname";
+		cell2.innerHTML = nickname;
+		row = table.insertRow(3);
+		cell1 = row.insertCell(0);
+		cell2 = row.insertCell(1);
+		cell1.innerHTML = "State Province";
+		cell2.innerHTML = state_prove;
+		row = table.insertRow(4);
+		cell1 = row.insertCell(0);
+		cell2 = row.insertCell(1);
+		cell1.innerHTML = "Website";
+		cell2.innerHTML = website;
 		
 		
 	}
@@ -186,22 +196,62 @@
 	
 	function searchEventsByYear() {
 		document.getElementById('currentTeams').style.display = "none";
-
+		var table = document.getElementById('results-table');
+		table.innerHTML = "";
+		table.style.display = "block";
 		//Get searchbar data
 		var year = document.getElementById('searchbar').value;
-		var body = document.getElementById('searchData');
 		var data = getListOfEventsByYear(year);
 		$("#searchData").empty();
+		
+		var header = table.insertRow(0);
+		var th1 = header.insertCell(0);
+		var th2 = header.insertCell(1);
+		var th3 = header.insertCell(2);
+		var th4 = header.insertCell(3);
+		var th5 = header.insertCell(4);
+		var th6 = header.insertCell(5);
+		th1.innerHTML = "Type:";
+		th2.innerHTML = "City:";
+		th3.innerHTML = "Country:";
+		th4.innerHTML = "Event Key:";
+		th5.innerHTML = "Starts:";
+		th6.innerHTML = "Ends:";
+		
 		for(var i = 0; i < data.length; i++) {
 			var output = data[i].type + " in " + data[i].city + ", " + data[i].country + "\n";
 			output += "Event Key: " + data[i].key + "\n";
 			output += "Starts: " + data[i].start_date + " | Ends: " + data[i].end_date;
-			var node = document.createElement("LI");
-			var textnode = document.createTextNode(output);
-			node.appendChild(textnode);
-			body.appendChild(node);
+			
+			var row = table.insertRow(i+1);
+			var type = row.insertCell(0);
+			var city = row.insertCell(1);
+			var country = row.insertCell(2);
+			var key = row.insertCell(3);
+			var starts = row.insertCell(4);
+			var ends = row.insertCell(5);
+			
+		    type.innerHTML = data[i].type;
+			city.innerHTML = data[i].city;
+			country.innerHTML = data[i].country;
+			key.innerHTML = data[i].key;
+			starts.innerHTML = data[i].start_date;
+			ends.innerHTML = data[i].end_date;
 		}
-		body.style.display = "block";
+
+	}
+	
+	function  draftAnnouncement(elementId) {
+		var row = elementId.parentNode.parentNode.rowIndex;
+		var teamNum = document.getElementById("results-table").rows[row].cells[3].innerHTML;
+		document.getElementById("results-table").deleteRow(row);
+		alert("You have drafted team " + teamNum);
+		var table = document.getElementById("results-table");
+		var length = document.getElementById("results-table").rows.length;
+		for(var i = 0; i < length; i++) {
+				var r = table.rows[i];
+				r.deleteCell(4);
+		}
 	}
 	</script>
 </body>
