@@ -3,7 +3,7 @@ var base = 'https://cors-anywhere.herokuapp.com/'+ 'https://www.thebluealliance.
 var data = [];
 var o
 var averageOPRS;
-
+var averageDPRS;
 
 var temps;
 var file;
@@ -43,7 +43,19 @@ function getAverageDPRS(teamnum) {
 		}
 	}, defaultError);
 }
-
+function getTeamOPR(teamnum) {
+	var keys = Object.keys(averageDPRS);
+	for(var i = 0; i < keys.length; i++) {
+		if(keys[i] == ("frc" + teamnum)) {
+			return averageDPRS[keys[i]];
+		}
+	}
+}
+function loadOPRS() {
+	$.getJSON("/FRC%20Fantasy/databases/AverageDPRS.json",function(stuff) {
+		averageDPRS = stuff;
+	},defaultError);
+}
 function loadOPRS() {
 	$.getJSON("/FRC%20Fantasy/databases/AverageOPRS.json",function(stuff) {
 		averageOPRS = stuff;
@@ -246,7 +258,7 @@ function getFRCTeamSuccess(data) {
 			var web = data[i].website;
 			var join = data[i].rookie_year;
 			var teamnum = data[i].team_number;
-			var oprNum = getTeamOPR(868);
+			var oprNum = getTeamOPR(teamnum);
 			
 			row = table.insertRow(i+1);
 			nickname = row.insertCell(0);
