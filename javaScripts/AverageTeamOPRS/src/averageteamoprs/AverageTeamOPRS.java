@@ -62,7 +62,7 @@ public class AverageTeamOPRS {
         }
         System.out.println("");
         System.out.println(AverageOPRS.toString());
-        PrintWriter writer = new PrintWriter("C:\\Users\\dvpie\\Documents\\AverageOPRS.json", "UTF-8");
+        PrintWriter writer = new PrintWriter("//var//www//html//FRC Fantasy//databases//AverageOPRS.json", "UTF-8");
         writer.println(AverageOPRS.toString());
         writer.close();
         
