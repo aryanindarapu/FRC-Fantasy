@@ -45,9 +45,18 @@ if(isset($_POST['username'])){
 }
 
 ?>
-<script>
-localStorage.setItem("username","<?php echo $username;?>");
-document.cookie = "username=" + "<?php echo $username; ?>";
+
+<html>
+	<head>
+        <title>Login - FantasyFRC</title>
+        <link rel="stylesheet" type="text/css" href="fantasy.css?version=11">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="fantasy.js?version=11"></script>
+		<script>
+function setValues() {
+	localStorage.setItem("username","<?php echo $username;?>");
+	document.cookie = "username=" + "<?php echo $username; ?>";
+}
 /*
 Splits up cookie into parts to get username
 */
@@ -67,12 +76,6 @@ function getCookie(cname) {
 	return "";
 }
 </script>
-<html>
-	<head>
-        <title>Login - FantasyFRC</title>
-        <link rel="stylesheet" type="text/css" href="fantasy.css?version=11">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=11"></script>
 	</head>
 	<body style="background-color:#cccccc">
 		<div id="navbar" class="navbar">
@@ -110,6 +113,8 @@ function getCookie(cname) {
 		
 		<?php
 			if($loggedIn) {
+				echo "<script type='text/javascript'> setValues(); </script>";
+				sleep(1);
 				echo "<div class='success'><p>Logged in. Redirecting..</p></div>";
 				header("Location:"."http://www.techhounds.com/FRC%20Fantasy/index.html");
 			} else if($error != null) {
