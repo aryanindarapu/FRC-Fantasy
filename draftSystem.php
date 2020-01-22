@@ -14,9 +14,9 @@
 	//GET user division, then load table for that division.
 	$division;
 	$query = "SELECT * FROM divisions WHERE username='".$username."'";
-	
+		$conn = mysqli_connect('localhost','loginUser','techhounds','fantasyfrc');
 	$result = mysqli_query($conn, $query);
-	$conn = mysqli_connect('localhost','loginUser','techhounds','fantasyfrc');
+
 	if(mysqli_num_rows($result) === 0) {
 		$error = "RIP";
 	} else {
@@ -124,7 +124,7 @@
 		<th>Pick Team</th>
 	</tr>
 <?php
-	while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+	while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		echo "<tr>";
 		echo "<td></td><td></td><td></td>";
 		echo "<td>".$row["team_num"]."</td>";
