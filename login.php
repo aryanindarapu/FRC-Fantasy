@@ -89,7 +89,7 @@ if(isset($_POST['username'])){
 		
 		<?php
 			if($loggedIn) {
-				setcookie("username",$username,time()+2*24*60*60);
+				setcookie("username",$username,time()+(2*24*60*60),'/');
 				sleep(1);
 				echo "<div class='success'><p>Logged in. Redirecting in 5 seconds..</p></div>";
 				sleep(5);
