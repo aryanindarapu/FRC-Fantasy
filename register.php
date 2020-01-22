@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<title>Register - Fantasy FRC</title>
-	<link rel="stylesheet" type="text/css" href="fantasy.css?version=11">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="fantasy.js?version=11"></script>
+		<title>Register - Fantasy FRC</title>
+		<link rel="stylesheet" type="text/css" href="fantasy.css?version=12">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="fantasy.js?version=12"></script>
 	</head>
 	<body style="background-color:#cccccc">
 		<?php
