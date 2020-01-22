@@ -30,15 +30,13 @@ function menufunction() {
 }
 
 function loggedIn() {
-	if (document.cookie != null) {
-		document.getElementById("login").removeChild(document.getElementById("login").childNodes[1]);
-		document.getElementById("login").remove();
-		document.getElementById("register").removeChild(document.getElementById("register").childNodes[1]);
-		document.getElementById("register").remove();
-		document.getElementById("profile").style.display = "inline-block";
-		document.getElementById("profileName").style.display = "inline-block";
-		document.getElementById("profileName").innerHTML = localStorage.getItem("username");
-	}
+	document.getElementById("login").removeChild(document.getElementById("login").childNodes[1]);
+	document.getElementById("login").remove();
+	document.getElementById("register").removeChild(document.getElementById("register").childNodes[1]);
+	document.getElementById("register").remove();
+	document.getElementById("profile").style.display = "inline-block";
+	document.getElementById("profileName").style.display = "inline-block";
+	document.getElementById("profileName").innerHTML = user;
 }
 
 
@@ -56,8 +54,8 @@ function getCookie(cname) {
 			c = c.substring(1);
 		}
 		if (c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length);
+			var user = c.substring(name.length, c.length);
+			loggedIn();
 		}
 	}
-	return "";
 }
