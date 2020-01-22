@@ -52,30 +52,6 @@ if(isset($_POST['username'])){
         <link rel="stylesheet" type="text/css" href="fantasy.css?version=11">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="fantasy.js?version=11"></script>
-		<script>
-function setValues() {
-	localStorage.setItem("username","<?php echo $username;?>");
-	document.cookie = "username=" + "<?php echo $username; ?>";
-}
-/*
-Splits up cookie into parts to get username
-*/
-function getCookie(cname) {
-	var name = cname + "=";
-	var decodedCookie = decodeURIComponent(document.cookie);
-	var ca = decodedCookie.split(';');
-	for(var i = 0; i <ca.length; i++) {
-		var c = ca[i];
-		while (c.charAt(0) == ' ') {
-			c = c.substring(1);
-		}
-		if (c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length);
-		}
-	}
-	return "";
-}
-</script>
 	</head>
 	<body style="background-color:#cccccc">
 		<div id="navbar" class="navbar">
