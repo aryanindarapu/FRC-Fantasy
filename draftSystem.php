@@ -11,6 +11,23 @@
 		header("Location:login.php");
 	}
 	
+	//GET user division, then load table for that division.
+	$division;
+	$query = "SELECT * FROM divisions WHERE username='".$username."'";
+	
+	$result = mysqli_query($conn, $query);
+	$conn = mysqli_connect('localhost','loginUser','techhounds','fantasyfrc');
+	if(mysqli_num_rows($result) === 0) {
+		$error = "RIP";
+	} else {
+		$row = mysqli_fetch_assoc($result);
+		$division = $row['division'];
+	}
+	$query = "SELECT * FROM drafted_teams WHERE divison='".$division."' AND username IS NULL";
+	$result = mysqli_query($conn,$query);
+	
+	
+	
 ?>
 <html>
 <head>
@@ -96,7 +113,27 @@
 
 <p id="usrVal" style="display:none;"></p>
 </table>
-
+<table id="drafting-table">
+	<tr>
+		<th>Nickname:</th>
+		<th>Joined:</th>
+		<th>Website:</th>
+		<th>Team #:</th>
+		<th>Average OPR</th>
+		<th>Average DPR</th>
+		<th>Pick Team</th>
+	</tr>
+<?php
+	while($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+		echo "<tr>";
+		echo "<td></td><td></td><td></td>";
+		echo "<td>".$row["team_num"]."</td>";
+		echo "<td></td><td></td>";
+		echo "<td><button onclick=\"draftAnnouncement(this)\">Pick</button></td>";
+		echo "</tr>";
+	}
+	?>
+</table>
 
 	<script>
 	loadOPRS();
@@ -272,9 +309,42 @@
 		var length = document.getElementById("results-table").rows.length;
 		for(var i = 0; i < length; i++) {
 				var r = table.rows[i];
-				r.deleteCell(4);
+				r.deleteCell(6);
 		}
 	}
+	</script>
+	
+	<script>
+	//LOAD ALL DRAFTING DATA
+	var table = document.getElementById("drafting-table");
+	var length = document.getElementById("drafting-table").rows.length;
+	$.getJSON('https://cors-anywhere.herokuapp.com/'+ 'https://www.thebluealliance.com/api/v3/district/2020in/teams',
+		function(aData) {
+			for(var i = 1; i < length; i++) {
+				var r = table.rows[i];
+				var nickname = r.cells[0];
+				var joined = r.cells[1];
+				var website = r.cells[2];
+				var teamnum = parseInt(r.cells[3].innerHTML);
+				var avgOPR = r.cells[4];
+				var avgDPR = r.cells[5];
+				
+				var oprNum = getTeamOPR(teamnum);
+				var dprNum = getTeamDPR(teamnum);
+				
+				avgOPR.innerHTML = oprNum;
+				avgDPR.innerHTML = dprNum;
+				for(var j = 0; j < aData.length; j++) {
+					if(teamnum == aData[j].team_number) {
+						nickname.innerHTML = aData[j].nickname;
+						joined.innerHTML = aData[j].rookie_year;
+						website.innerHTML = aData[j].website;
+						break;
+					}
+				}					
+			}
+		});
+	
 	</script>
 </body>
 </html>
