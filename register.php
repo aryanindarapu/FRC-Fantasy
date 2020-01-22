@@ -2,9 +2,9 @@
 <html>
 	<head>
 		<title>Register - Fantasy FRC</title>
-		<link rel="stylesheet" type="text/css" href="fantasy.css?version=13">
+		<link rel="stylesheet" type="text/css" href="fantasy.css?version=14">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=13"></script>
+		<script src="fantasy.js?version=14"></script>
 	</head>
 	<body style="background-color:#cccccc">
 		<?php
