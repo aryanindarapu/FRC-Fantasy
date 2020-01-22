@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="fantasy.js?version=14"></script>
 	</head>
-	<body style="background-color:#cccccc">
+	<body style="background-color:#cccccc" onload="loggedIn()">
 		<?php
 		$error = null;
 		if(isset($_POST['username'])){

@@ -2,6 +2,9 @@
 <?php
 $error = null;
 $loggedIn = false;
+if(isset($_GET["r"])){
+	header("Location:"."http://www.techhounds.com/FRC%20Fantasy/index.html");
+}
 if(isset($_POST['username'])){
 	$username = $_POST['username'];
 	$password = $_POST['password'];
@@ -53,7 +56,7 @@ if(isset($_POST['username'])){
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="fantasy.js?version=14"></script>
 	</head>
-	<body style="background-color:#cccccc">
+	<body style="background-color:#cccccc" onload="loggedIn()">
 		<div id="navbar" class="navbar">
 			<div class="nl">
 				<a href="https://techhounds.com/FRC%20Fantasy/index.html"><img class="navLogo" src="finalColorFantasyLogo.png?version=1" /></a>
@@ -90,10 +93,9 @@ if(isset($_POST['username'])){
 		<?php
 			if($loggedIn) {
 				setcookie("username",$username,time()+(2*24*60*60),'/');
-				sleep(1);
 				echo "<div class='success'><p>Logged in. Redirecting in 5 seconds..</p></div>";
 				sleep(5);
-				header("Location:"."http://www.techhounds.com/FRC%20Fantasy/index.html");
+				header("Location:"."http://www.techhounds.com/FRC%20Fantasy/login.php?r=true");
 			} else if($error != null) {
 				echo "<div class='error'><p>".$error."</p></div>";
 			}
