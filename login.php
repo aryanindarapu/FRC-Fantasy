@@ -46,8 +46,26 @@ if(isset($_POST['username'])){
 
 ?>
 <script>
-		localStorage.setItem("username","<?php echo $username;?>");
-		document.cookie = "username=" + "<?php echo $username; ?>";
+localStorage.setItem("username","<?php echo $username;?>");
+document.cookie = "username=" + "<?php echo $username; ?>";
+/*
+Splits up cookie into parts to get username
+*/
+function getCookie(cname) {
+	var name = cname + "=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(';');
+	for(var i = 0; i <ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
 </script>
 <html>
 	<head>
