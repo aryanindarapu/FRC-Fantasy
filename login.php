@@ -91,7 +91,8 @@ if(isset($_POST['username'])){
 			if($loggedIn) {
 				echo "<script type='text/javascript'> setValues(); </script>";
 				sleep(1);
-				echo "<div class='success'><p>Logged in. Redirecting..</p></div>";
+				echo "<div class='success'><p>Logged in. Redirecting in 5 seconds..</p></div>";
+				sleep(5);
 				header("Location:"."http://www.techhounds.com/FRC%20Fantasy/index.html");
 			} else if($error != null) {
 				echo "<div class='error'><p>".$error."</p></div>";

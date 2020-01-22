@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <?php
 	$loggedIn = false;
-	
+	$username;
 	//libxml_use_internal_errors(true);
 	if (isset($_COOKIE["username"])){
 		$username = $_COOKIE["username"];
 		$loggedIn = true;
+	} else {
+		//Redirect to login page
+		header("Location:login.php");
 	}
 	
 ?>
@@ -61,7 +64,8 @@
 	</style>
 </head>
 <body>
-<script>var loggedIn = "<?php echo $loggedIn; ?>";</script>
+<script>var loggedIn = "<?php echo $loggedIn; ?>";
+</script>
 <div class="nav">
 	<nav>
 		<ul>
@@ -76,6 +80,9 @@
 			</li>
 			<li onclick="listAwards()">
 				List Teams Awards
+			</li>
+			<li style="float:right">
+				<?php echo $username; ?>
 			</li>
 		<ul>
 	</nav>
@@ -240,10 +247,26 @@
 		}
 
 	}
-	
+	/* This event happens when the user drafts a team */
 	function  draftAnnouncement(elementId) {
+		/*  AJAX */
+		
+		
+		
+		
 		var row = elementId.parentNode.parentNode.rowIndex;
 		var teamNum = document.getElementById("results-table").rows[row].cells[3].innerHTML;
+		var name = "<?php echo $username; ?>";
+		
+		$.ajax({
+			url: 'draftTeam.php',
+			type: 'POST',
+			data: { "username":name, "teamnum":teamNum},
+			success: function(aData) {
+				console.log("Worked");
+				console.log(aData);
+			}
+		});
 		document.getElementById("results-table").deleteRow(row);
 		alert("You have drafted team " + teamNum);
 		var table = document.getElementById("results-table");
