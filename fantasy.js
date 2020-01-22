@@ -41,12 +41,11 @@ function loggedIn() {
 	}
 }
 
-function setValues() {
-	localStorage.setItem("username","<?php echo $username;?>");
-	document.cookie = "username=" + "<?php echo $username; ?>";
-}
+localStorage.setItem("username","<?php echo $username;?>");
+document.cookie = "username=" + "<?php echo $username;?>";
+
 /*
-Splits up cookie into parts to get username
+Splits up cookie into parts to get cookie value
 */
 function getCookie(cname) {
 	var name = cname + "=";
