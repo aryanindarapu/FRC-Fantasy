@@ -41,8 +41,7 @@ function loggedIn() {
 	}
 }
 
-localStorage.setItem("username","<?php echo $username;?>");
-document.cookie = "username=" + "<?php echo $username;?>";
+
 
 /*
 Splits up cookie into parts to get cookie value

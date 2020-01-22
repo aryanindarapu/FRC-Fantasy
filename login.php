@@ -89,7 +89,8 @@ if(isset($_POST['username'])){
 		
 		<?php
 			if($loggedIn) {
-				echo "<script type='text/javascript'> setValues(); </script>";
+				echo "<script type='text/javascript'>localStorage.setItem('username','<?php echo $username;?>');
+document.cookie = 'username=' + '".$username ."'; </script>";
 				sleep(1);
 				echo "<div class='success'><p>Logged in. Redirecting in 5 seconds..</p></div>";
 				sleep(5);
