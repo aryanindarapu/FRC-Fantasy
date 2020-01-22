@@ -124,7 +124,7 @@
 		<th>Pick Team</th>
 	</tr>
 <?php
-	while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+	while($row = mysqli_fetch_assoc($result)) {
 		echo "<tr>";
 		echo "<td></td><td></td><td></td>";
 		echo "<td>".$row["team_num"]."</td>";
