@@ -32,7 +32,7 @@ if(isset($_POST['username'])){
 		$error = "Incorrect Username and/or Password";
 	} else {
 		$row = mysqli_fetch_assoc($result);
-		
+		$username = $row['name'];
 		$dbpass = $row['password'];
 		if($hashed_password === $dbpass) {
 			$loggedIn = true;
@@ -89,8 +89,7 @@ if(isset($_POST['username'])){
 		
 		<?php
 			if($loggedIn) {
-				echo "<script type='text/javascript'>localStorage.setItem('username','<?php echo $username;?>');
-document.cookie = 'username=' + '".$username ."'; </script>";
+				setcookie("username",$username,time()+2*24*60*60);
 				sleep(1);
 				echo "<div class='success'><p>Logged in. Redirecting in 5 seconds..</p></div>";
 				sleep(5);
