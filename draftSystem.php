@@ -262,8 +262,9 @@
 			url: 'draftTeam.php',
 			type: 'POST',
 			data: { "username":name, "teamnum":teamNum},
-			success: function() {
+			success: function(aData) {
 				console.log("Worked");
+				console.log(aData);
 			}
 		});
 		document.getElementById("results-table").deleteRow(row);
