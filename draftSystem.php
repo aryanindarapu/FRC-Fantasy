@@ -99,7 +99,6 @@
 
 
 	<script>
-	document.getElementById("usrVal").innerHTML = username;
 	loadOPRS();
 	loadDPRS();
 	function search() {

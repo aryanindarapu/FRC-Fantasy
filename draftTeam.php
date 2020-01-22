@@ -26,6 +26,6 @@ ini_set('display_errors',1);
 		$division = $row['division'];
 	}
 	//Now To update the table to draft the team for the person
-	$query = "UPDATE drafted_teams SET username ='".$username"' WHERE division='".$division."' AND team_num='".$teamnum."'";
+	$query = "UPDATE drafted_teams SET username ='".$username."' WHERE division='".$division."' AND team_num='".$teamnum."'";
 	mysqli_query($conn, $query);
 ?>
