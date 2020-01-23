@@ -32,8 +32,8 @@ function menufunction() {
 /*
 Splits up cookie into parts to get cookie value
 */
-function getCookie(cname) {
-	var name = cname + "=";
+function getCookie() {
+	var name = "username=";
 	var decodedCookie = decodeURIComponent(document.cookie);
 	var ca = decodedCookie.split(';');
 	for(var i = 0; i <ca.length; i++) {
