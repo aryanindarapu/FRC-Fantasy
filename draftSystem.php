@@ -16,7 +16,7 @@
 	$query = "SELECT * FROM divisions WHERE username='".$username."'";
 		$conn = mysqli_connect('localhost','loginUser','techhounds','fantasyfrc');
 	$result = mysqli_query($conn, $query);
-
+	
 	if(mysqli_num_rows($result) === 0) {
 		$error = "RIP";
 	} else {
@@ -24,7 +24,7 @@
 		$division = $row['division'];
 	}
 	$query = "SELECT * FROM drafted_teams WHERE divison='".$division."' AND username IS NULL";
-	$result = mysqli_query($conn,$query);
+	$GLOBALS['results'] = mysqli_query($conn,$query);
 	
 	
 	
@@ -124,7 +124,7 @@
 		<th>Pick Team</th>
 	</tr>
 <?php
-	while($row = mysqli_fetch_assoc($result)) {
+	while($row = mysqli_fetch_assoc($GLOBALS['results'])) {
 		echo "<tr>";
 		echo "<td></td><td></td><td></td>";
 		echo "<td>".$row["team_num"]."</td>";
