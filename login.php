@@ -7,7 +7,7 @@ if(isset($_POST['username'])){
 	$password = $_POST['password'];
 
 	$email = true;
-	if(preg_match('(\w+)@(gmail|yahoo|icloud|hotmail|outlook|aol)(\.com|\.net)', $username)) {
+	if(preg_match('~(\w+)@(gmail|yahoo|icloud|hotmail|outlook|aol)(\.com|\.net)~', $username)) {
 		$email = true;
 	} else {
 		$email = false;
@@ -45,12 +45,34 @@ if(isset($_POST['username'])){
 }
 
 ?>
+<script>
+localStorage.setItem("username","<?php echo $username;?>");
+document.cookie = "username=" + "<?php echo $username; ?>";
+/*
+Splits up cookie into parts to get username
+*/
+function getCookie(cname) {
+	var name = cname + "=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(';');
+	for(var i = 0; i <ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
+</script>
 <html>
 	<head>
         <title>Login - FantasyFRC</title>
-        <link rel="stylesheet" type="text/css" href="fantasy.css?version=9">
+        <link rel="stylesheet" type="text/css" href="fantasy.css?version=11">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js"></script>
+		<script src="fantasy.js?version=11"></script>
 	</head>
 	<body style="background-color:#cccccc">
 		<div id="navbar" class="navbar">
@@ -75,6 +97,9 @@ if(isset($_POST['username'])){
 			<div id="login" class="menubar menuBarRight">
 				<a href="https://techhounds.com/FRC%20Fantasy/login.php" class="menubartext">Login</a>
 			</div>
+			<div id="profile" class="menubar menuBarRight">
+				<p id="profileName" href="" class="menubartext"></p>
+			</div>
 			<div id="n2" class="n2">
 				<img id="navLogoMobile" class="navLogoMobile" src="finalColorFantasyLogo.png?version=1"/>
 			</div>
@@ -86,6 +111,7 @@ if(isset($_POST['username'])){
 		<?php
 			if($loggedIn) {
 				echo "<div class='success'><p>Logged in. Redirecting..</p></div>";
+				header("Location:"."http://www.techhounds.com/FRC%20Fantasy/index.html");
 			} else if($error != null) {
 				echo "<div class='error'><p>".$error."</p></div>";
 			}
@@ -97,7 +123,7 @@ if(isset($_POST['username'])){
                 <input name="username" id="username" type="text" /></br>
                 <label for="password">Password: </label>
                 <input name="password" id="password" type="password" /></br>
-                <input type="submit" value="Log In" />
+                <input type="submit" value="Log In" onclick="loggedIn()"/>
             </form>
         </div>
 	</body>

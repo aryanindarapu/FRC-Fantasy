@@ -3,6 +3,8 @@ var base = 'https://cors-anywhere.herokuapp.com/'+ 'https://www.thebluealliance.
 var data = [];
 var o
 var averageOPRS;
+var averageDPRS;
+
 var temps;
 var file;
 var loaded = false;
@@ -23,28 +25,62 @@ function getEventInfo(event_code) {
  * Returns the average OPR of the team called in
 */
 function getStatus(){
-	var file = $.getJSON("databases/status.json"),
+	var file = $.getJSON("https://techhounds.com/FRC%20Fantasy/databases/AverageOPRS.json"),
 		checker = $.when(file);
 	checker.done(function() {
 		console.log(file.response);
 	});
 }
-function getAverageOPRS(teamnum) {
+function getAverageDPRS(teamnum) {
 	loaded = false;
-	$.getJSON("databases/AverageOPRS.json",averageOPRSSuccess,defaultError);
-	
-	
-	while(!loaded){
-		
-	}
-	var keys = Object.keys(file);
+	$.getJSON("/FRC%20Fantasy/databases/AverageDPRS.json",function(dat) {
+		console.log("loading...");
+		var keys = Object.keys(dat);
+		for(var i = 0; i < keys.length; i++) {
+			if(keys[i] == ("frc" + teamnum)) {
+				return dat[keys[i]];
+			}
+		}
+	}, defaultError);
+}
+function getTeamDPR(teamnum) {
+	var keys = Object.keys(averageDPRS);
 	for(var i = 0; i < keys.length; i++) {
 		if(keys[i] == ("frc" + teamnum)) {
-			console.log(file[keys[i]]);
-			return file[keys[i]];
+			return averageDPRS[keys[i]];
 		}
 	}
-	
+}
+function loadDPRS() {
+	$.getJSON("/FRC%20Fantasy/databases/AverageDPRS.json",function(stuff) {
+		averageDPRS = stuff;
+	},defaultError);
+}
+function loadOPRS() {
+	$.getJSON("/FRC%20Fantasy/databases/AverageOPRS.json",function(stuff) {
+		averageOPRS = stuff;
+	},defaultError);
+}
+function getTeamOPR(teamnum) {
+	var keys = Object.keys(averageOPRS);
+	for(var i = 0; i < keys.length; i++) {
+		if(keys[i] == ("frc" + teamnum)) {
+			return averageOPRS[keys[i]];
+		}
+	}
+}
+function getAverageOPRS(teamnum) {
+	loaded = false;
+	$.getJSON("/FRC%20Fantasy/databases/AverageOPRS.json",function(dat){
+		console.log("loading...");
+		console.log(dat);
+		var keys = Object.keys(dat);
+	for(var i = 0; i < keys.length; i++) {
+		if(keys[i] == ("frc" + teamnum)) {
+			return dat[keys[i]];
+		}
+	}
+	},defaultError);
 }
 
 /**
@@ -189,8 +225,9 @@ function getThisYearsTeams() {
 	});
 }
 
-function averageOPRSSuccess(data) {
-	file = data;
+function averageOPRSSuccess(succ) {
+	console.log("in average oprs function");
+	file = succ;
 	loaded = true;
 }
 
@@ -205,12 +242,15 @@ function getFRCTeamSuccess(data) {
 		var joined = row.insertCell(1);
 		var website = row.insertCell(2);
 		var teamNum = row.insertCell(3);
-		var pickTeam = row.insertCell(4);
+		var avgOPR = row.insertCell(4);
+		var avgDPR = row.insertCell(5);
+		var pickTeam = row.insertCell(6);
 		
 		nickname.innerHTML = "Nickname";
 		joined.innerHTML = "Joined";
 		website.innerHTML = "Website";
 		teamNum.innerHTML = "Team #";
+		avgOPR.innerHTML = "Average OPR";
 		pickTeam.innerHTML = "Pick Team";
 		
 		for(var i = 0; i < data.length; i++) {
@@ -219,18 +259,24 @@ function getFRCTeamSuccess(data) {
 			var web = data[i].website;
 			var join = data[i].rookie_year;
 			var teamnum = data[i].team_number;
+			var oprNum = getTeamOPR(teamnum);
+			var dprNum = getTeamDPR(teamnum);
 			
 			row = table.insertRow(i+1);
 			nickname = row.insertCell(0);
 			joined = row.insertCell(1);
 			website = row.insertCell(2);
 			teamNum = row.insertCell(3);
-			pickTeam = row.insertCell(4);
+			avgOPR = row.insertCell(4);
+			avgDPR = row.insertCell(5);
+			pickTeam = row.insertCell(6);
 			
 			nickname.innerHTML = nick;
 			joined.innerHTML = join;
 			website.innerHTML = web;
 			teamNum.innerHTML = teamnum;
+			avgOPR.innerHTML = oprNum;
+			avgDPR.innerHTML = dprNum;
 			pickTeam.innerHTML = "<button onclick=\"draftAnnouncement(this)\">Pick</button>";
 		}
 	}
@@ -261,6 +307,7 @@ function listOfEventsByYearSuccess(success) {
 	data = collector;
 }
 function defaultError(error) {
+	console.log("in default error");
 	console.log(error);
 	data = [];
 }

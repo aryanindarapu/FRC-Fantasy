@@ -55,7 +55,7 @@
 	<nav>
 		<ul>
 			<li onclick="getThisYearsTeams()">
-				This Years Teams
+				Draft Teams
 			</li>
 			<li onclick="search()">
 				Search Team Info
@@ -81,7 +81,8 @@
 
 
 	<script>
-	
+	loadOPRS();
+	loadDPRS();
 	function search() {
 		document.getElementById('currentTeams').style.display = "none";
 		$("#searchData").empty();
@@ -236,12 +237,10 @@
 		var table = document.getElementById("results-table");
 		var length = document.getElementById("results-table").rows.length;
 		for(var i = 0; i < length; i++) {
-			var r = table.rows[i];
-			r.deleteCell(4);
+				var r = table.rows[i];
+				r.deleteCell(4);
 		}
 	}
-	
-	console.log(getTeamEvents(868));
 	</script>
 </body>
 </html>

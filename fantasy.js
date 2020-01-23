@@ -27,6 +27,16 @@ function menufunction() {
 	} else {
 		console.log("Failed");
 	}
+}
 
-
+function loggedIn() {
+	if (document.cookie != null) {
+		document.getElementById("login").removeChild(document.getElementById("login").childNodes[1]);
+		document.getElementById("login").remove();
+		document.getElementById("register").removeChild(document.getElementById("register").childNodes[1]);
+		document.getElementById("register").remove();
+		document.getElementById("profile").style.display = "inline-block";
+		document.getElementById("profileName").style.display = "inline-block";
+		document.getElementById("profileName").innerHTML = localStorage.getItem("username");
+	}
 }
