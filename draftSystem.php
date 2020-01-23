@@ -12,19 +12,6 @@
 	}
 	
 	//GET user division, then load table for that division.
-	$division;
-	$query = "SELECT * FROM divisions WHERE username='".$username."'";
-		$conn = mysqli_connect('localhost','loginUser','techhounds','fantasyfrc');
-	$result = mysqli_query($conn, $query);
-	
-	if(mysqli_num_rows($result) === 0) {
-		$error = "RIP";
-	} else {
-		$row = mysqli_fetch_assoc($result);
-		$division = $row['division'];
-	}
-	$query = "SELECT * FROM drafted_teams WHERE divison='".$division."' AND username IS NULL";
-	$GLOBALS['results'] = mysqli_query($conn,$query);
 	
 	
 	
@@ -124,14 +111,33 @@
 		<th>Pick Team</th>
 	</tr>
 <?php
-	while($row = mysqli_fetch_assoc($GLOBALS['results'])) {
-		echo "<tr>";
-		echo "<td></td><td></td><td></td>";
-		echo "<td>".$row["team_num"]."</td>";
-		echo "<td></td><td></td>";
-		echo "<td><button onclick=\"draftAnnouncement(this)\">Pick</button></td>";
-		echo "</tr>";
+	$division;
+	$query = "SELECT * FROM divisions WHERE username='".$username."'";
+		$conn = mysqli_connect('localhost','loginUser','techhounds','fantasyfrc');
+	$result = mysqli_query($conn, $query);
+	
+	if(mysqli_num_rows($result) === 0) {
+		$error = "RIP";
+	} else {
+		$row = mysqli_fetch_assoc($result);
+		$division = $row['division'];
 	}
+	
+
+	$query = "SELECT * FROM drafted_teams WHERE divison='".$division."' AND username IS NULL";
+	$results = mysqli_query($conn,$query);
+	
+	if(mysqli_num_rows($result) > 0) {
+		while($row = mysqli_fetch_assoc($results)) {
+			echo "<tr>";
+			echo "<td></td><td></td><td></td>";
+			echo "<td>".$row["team_num"]."</td>";
+			echo "<td></td><td></td>";
+			echo "<td><button onclick=\"draftAnnouncement(this)\">Pick</button></td>";
+			echo "</tr>";
+		}
+	}
+	
 	?>
 </table>
 

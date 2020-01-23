@@ -1,0 +1,1 @@
+﻿alias conn="ssh webdeploy@157.245.15.93 -p 9922"

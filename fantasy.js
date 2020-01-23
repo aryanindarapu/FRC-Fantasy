@@ -32,8 +32,8 @@ function menufunction() {
 /*
 Splits up cookie into parts to get cookie value
 */
-function getCookie(cname) {
-	var name = cname + "=";
+function getCookie() {
+	var name = "username=";
 	var decodedCookie = decodeURIComponent(document.cookie);
 	var ca = decodedCookie.split(';');
 	for(var i = 0; i <ca.length; i++) {
@@ -42,13 +42,13 @@ function getCookie(cname) {
 			c = c.substring(1);
 		}
 		if (c.indexOf(name) == 0) {
-			var user = c.substring(name.length, c.length);
+			return c.substring(name.length, c.length);
 			loggedIn();
 		}
 	}
+	return "";
 }
-
-
+var user = getCookie();
 function loggedIn() {
 	document.getElementById("login").removeChild(document.getElementById("login").childNodes[1]);
 	document.getElementById("login").remove();
