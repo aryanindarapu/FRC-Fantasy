@@ -2,11 +2,11 @@
 <html>
 	<head>
 		<title>Register - Fantasy FRC</title>
-		<link rel="stylesheet" type="text/css" href="fantasy.css?version=14">
+		<link rel="stylesheet" type="text/css" href="fantasy.css?version=15">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=14"></script>
+		<script src="fantasy.js?version=15"></script>
 	</head>
-	<body style="background-color:#cccccc" onload="loggedIn()">
+	<body style="background-color:#cccccc" onload="getCookie(username)">
 		<?php
 		$error = null;
 		if(isset($_POST['username'])){

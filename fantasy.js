@@ -29,18 +29,6 @@ function menufunction() {
 	}
 }
 
-function loggedIn() {
-	document.getElementById("login").removeChild(document.getElementById("login").childNodes[1]);
-	document.getElementById("login").remove();
-	document.getElementById("register").removeChild(document.getElementById("register").childNodes[1]);
-	document.getElementById("register").remove();
-	document.getElementById("profile").style.display = "inline-block";
-	document.getElementById("profileName").style.display = "inline-block";
-	document.getElementById("profileName").innerHTML = user;
-}
-
-
-
 /*
 Splits up cookie into parts to get cookie value
 */
@@ -58,4 +46,15 @@ function getCookie(cname) {
 			loggedIn();
 		}
 	}
+}
+
+
+function loggedIn() {
+	document.getElementById("login").removeChild(document.getElementById("login").childNodes[1]);
+	document.getElementById("login").remove();
+	document.getElementById("register").removeChild(document.getElementById("register").childNodes[1]);
+	document.getElementById("register").remove();
+	document.getElementById("profile").style.display = "inline-block";
+	document.getElementById("profileName").style.display = "inline-block";
+	document.getElementById("profileName").innerHTML = user;
 }
