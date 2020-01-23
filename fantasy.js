@@ -43,10 +43,10 @@ function getCookie() {
 		}
 		if (c.indexOf(name) == 0) {
 			return c.substring(name.length, c.length);
-			loggedIn();
 		}
 	}
 	return "";
+	loggedIn();
 }
 var user = getCookie();
 function loggedIn() {

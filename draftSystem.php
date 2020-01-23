@@ -124,7 +124,7 @@
 	}
 	
 
-	$query = "SELECT * FROM drafted_teams WHERE divison='".$division."' AND username IS NULL";
+	$query = "SELECT * FROM drafted_teams WHERE division='".$division."' AND username IS NULL";
 	$results = mysqli_query($conn,$query);
 	
 	if(mysqli_num_rows($result) > 0) {
@@ -297,7 +297,7 @@
 		
 		
 		var row = elementId.parentNode.parentNode.rowIndex;
-		var teamNum = document.getElementById("results-table").rows[row].cells[3].innerHTML;
+		var teamNum = document.getElementById("drafting-table").rows[row].cells[3].innerHTML;
 		var name = "<?php echo $username; ?>";
 		
 		$.ajax({
@@ -309,10 +309,10 @@
 				console.log(aData);
 			}
 		});
-		document.getElementById("results-table").deleteRow(row);
+		document.getElementById("drafting-table").deleteRow(row);
 		alert("You have drafted team " + teamNum);
-		var table = document.getElementById("results-table");
-		var length = document.getElementById("results-table").rows.length;
+		var table = document.getElementById("drafting-table");
+		var length = document.getElementById("drafting-table").rows.length;
 		for(var i = 0; i < length; i++) {
 				var r = table.rows[i];
 				r.deleteCell(6);
@@ -324,6 +324,12 @@
 	//LOAD ALL DRAFTING DATA
 	var table = document.getElementById("drafting-table");
 	var length = document.getElementById("drafting-table").rows.length;
+	$.ajaxSetup({
+			headers : {
+				'X-TBA-Auth-Key':'VG6oKsnz6E2EheeIFFkZwHjcAT66vwpttZTXWmXyPOSMyjmRyrA9Q5I8cUeiZTeJ',
+				'accept':'application/json'
+			}
+		});
 	$.getJSON('https://cors-anywhere.herokuapp.com/'+ 'https://www.thebluealliance.com/api/v3/district/2020in/teams',
 		function(aData) {
 			for(var i = 1; i < length; i++) {

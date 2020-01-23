@@ -3,7 +3,11 @@
 $error = null;
 $loggedIn = false;
 if(isset($_GET["r"])){
-	header("Location:"."http://www.techhounds.com/FRC%20Fantasy/index.html");
+	if(!isset($_COOKIE["username"])) {
+		echo "Cookie Failed to Set";
+	} else {
+		header("Location:"."http://www.techhounds.com/FRC%20Fantasy/index.html");
+	}
 }
 if(isset($_POST['username'])){
 	$username = $_POST['username'];
@@ -52,9 +56,9 @@ if(isset($_POST['username'])){
 <html>
 	<head>
         <title>Login - FantasyFRC</title>
-		<link rel="stylesheet" type="text/css" href="fantasy.css?version=18">
+		<link rel="stylesheet" type="text/css" href="fantasy.css?version=20">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=18"></script>
+		<script src="fantasy.js?version=20"></script>
 	</head>
 	<body style="background-color:#cccccc" onload="getCookie()">
 		<div id="navbar" class="navbar">
@@ -92,10 +96,11 @@ if(isset($_POST['username'])){
 		
 		<?php
 			if($loggedIn) {
+				$_COOKIE['username'] = $username;
 				setcookie("username",$username,time()+(2*24*60*60),'/');
 				echo "<div class='success'><p>Logged in. Redirecting in 5 seconds..</p></div>";
 				sleep(5);
-				header("Location:"."http://www.techhounds.com/FRC%20Fantasy/login.php?r=true");
+				header("Location:"."http://www.techhounds.com/FRC%20Fantasy/login.php?r=true&username=".$username);
 			} else if($error != null) {
 				echo "<div class='error'><p>".$error."</p></div>";
 			}
