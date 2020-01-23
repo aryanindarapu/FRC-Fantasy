@@ -3,11 +3,9 @@
 $error = null;
 $loggedIn = false;
 if(isset($_GET["r"])){
-	if(!isset($_COOKIE["username"])) {
-		echo "Cookie Failed to Set";
-	} else {
-		header("Location:"."http://www.techhounds.com/FRC%20Fantasy/index.html");
-	}
+	
+	header("Location:"."http://www.techhounds.com/FRC%20Fantasy/index.html");
+	
 }
 if(isset($_POST['username'])){
 	$username = $_POST['username'];
@@ -100,7 +98,8 @@ if(isset($_POST['username'])){
 				setcookie("username",$username,time()+(2*24*60*60),'/');
 				echo "<div class='success'><p>Logged in. Redirecting in 5 seconds..</p></div>";
 				sleep(5);
-				header("Location:"."http://www.techhounds.com/FRC%20Fantasy/login.php?r=true&username=".$username);
+				header("Location:"."http://www.techhounds.com/FRC%20Fantasy/php/redirect.php?redirect=login");
+				exit();
 			} else if($error != null) {
 				echo "<div class='error'><p>".$error."</p></div>";
 			}
