@@ -82,9 +82,9 @@
 				<h1>FRC Fantasy Register</h1>
 				<label for="email" class="input">Email</label></br>
 				<input name="email" id="email" type="text" required></br>
-				<label for="username" class="input">Username:</label></br>
+				<label for="username" class="input">Username</label></br>
 				<input name="username" id="username" placeholder="username" type="text" required></br>
-				<label for="password" class="input">Password:</label></br>
+				<label for="password" class="input">Password</label></br>
 				<input name="password" id="password" type="password" required></br></br>
 				<input type="submit" value="Register" class="button"/>
 			</form>
