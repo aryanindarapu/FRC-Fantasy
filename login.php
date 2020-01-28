@@ -2,6 +2,9 @@
 <?php
 $error = null;
 $loggedIn = false;
+if(isset($_GET["r"])){
+	header("Location:"."http://www.techhounds.com/FRC%20Fantasy/index.html");
+}
 if(isset($_POST['username'])){
 	$username = $_POST['username'];
 	$password = $_POST['password'];
@@ -32,7 +35,7 @@ if(isset($_POST['username'])){
 		$error = "Incorrect Username and/or Password";
 	} else {
 		$row = mysqli_fetch_assoc($result);
-		
+		$username = $row['name'];
 		$dbpass = $row['password'];
 		if($hashed_password === $dbpass) {
 			$loggedIn = true;
@@ -45,36 +48,15 @@ if(isset($_POST['username'])){
 }
 
 ?>
-<script>
-localStorage.setItem("username","<?php echo $username;?>");
-document.cookie = "username=" + "<?php echo $username; ?>";
-/*
-Splits up cookie into parts to get username
-*/
-function getCookie(cname) {
-	var name = cname + "=";
-	var decodedCookie = decodeURIComponent(document.cookie);
-	var ca = decodedCookie.split(';');
-	for(var i = 0; i <ca.length; i++) {
-		var c = ca[i];
-		while (c.charAt(0) == ' ') {
-			c = c.substring(1);
-		}
-		if (c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length);
-		}
-	}
-	return "";
-}
-</script>
+
 <html>
 	<head>
         <title>Login - FantasyFRC</title>
-        <link rel="stylesheet" type="text/css" href="fantasy.css?version=11">
+        <link rel="stylesheet" type="text/css" href="fantasy.css?version=15">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=11"></script>
+		<script src="fantasy.js?version=15"></script>
 	</head>
-	<body style="background-color:#cccccc">
+	<body style="background-color:#cccccc" onload="getCookie(username)">
 		<div id="navbar" class="navbar">
 			<div class="nl">
 				<a href="https://techhounds.com/FRC%20Fantasy/index.html"><img class="navLogo" src="finalColorFantasyLogo.png?version=1" /></a>
@@ -110,8 +92,10 @@ function getCookie(cname) {
 		
 		<?php
 			if($loggedIn) {
-				echo "<div class='success'><p>Logged in. Redirecting..</p></div>";
-				header("Location:"."http://www.techhounds.com/FRC%20Fantasy/index.html");
+				setcookie("username",$username,time()+(2*24*60*60),'/');
+				echo "<div class='success'><p>Logged in. Redirecting in 5 seconds..</p></div>";
+				sleep(5);
+				header("Location:"."http://www.techhounds.com/FRC%20Fantasy/login.php?r=true");
 			} else if($error != null) {
 				echo "<div class='error'><p>".$error."</p></div>";
 			}

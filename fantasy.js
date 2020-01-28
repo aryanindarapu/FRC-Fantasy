@@ -29,14 +29,32 @@ function menufunction() {
 	}
 }
 
-function loggedIn() {
-	if (document.cookie != null) {
-		document.getElementById("login").removeChild(document.getElementById("login").childNodes[1]);
-		document.getElementById("login").remove();
-		document.getElementById("register").removeChild(document.getElementById("register").childNodes[1]);
-		document.getElementById("register").remove();
-		document.getElementById("profile").style.display = "inline-block";
-		document.getElementById("profileName").style.display = "inline-block";
-		document.getElementById("profileName").innerHTML = localStorage.getItem("username");
+/*
+Splits up cookie into parts to get cookie value
+*/
+function getCookie() {
+	var name = "username=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(';');
+	for(var i = 0; i <ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			var user = c.substring(name.length, c.length);
+			loggedIn();
+		}
 	}
+}
+
+
+function loggedIn() {
+	document.getElementById("login").removeChild(document.getElementById("login").childNodes[1]);
+	document.getElementById("login").remove();
+	document.getElementById("register").removeChild(document.getElementById("register").childNodes[1]);
+	document.getElementById("register").remove();
+	document.getElementById("profile").style.display = "inline-block";
+	document.getElementById("profileName").style.display = "inline-block";
+	document.getElementById("profileName").innerHTML = user;
 }
