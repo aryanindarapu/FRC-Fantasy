@@ -1,4 +1,4 @@
-<!DOCTYPE php>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>FantasyFRC</title>
@@ -43,10 +43,8 @@
 			</div>
 		</div>
 		
-		<div class="net">
-			<div class="paper">
-				<h2>About</h2>
-				<p>FRC Fantasy is a website based off of the FIRST Robotics program. The website allows users to participate in fantasy leagues based on the performances of FIRST Robotics teams during their competitions.</p>
+		<div class="leaguetop">
+			<div>
 			</div>
 		</div>
 	</body>

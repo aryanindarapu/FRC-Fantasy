@@ -1,4 +1,4 @@
-<!DOCTYPE php>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>FantasyFRC</title>
@@ -15,13 +15,13 @@
 				<a href="https://techhounds.com/FRC%20Fantasy/index.html" class="menubartext">Home</a>
 			</div>
 			<div id="team" class="menubar">
-				<a href="https://techhounds.com/FRC%20Fantasy/myTeam.php" class="menubartext">My Team</a>
+				<p class="menubartext">My Team</p>
 			</div>
 			<div id="league" class="menubar">
 				<a href="https://techhounds.com/FRC%20Fantasy/league.php" class="menubartext">League Home</a>
 			</div>
 			<div id="teams" class="menubar">
-				<a href="https://techhounds.com/FRC%20Fantasy/team.php" class="menubartext">Teams</a>
+				<p class="menubartext">Teams</p>
 			</div>
 			<div id="register" class="menubar menuBarRight">
 				<a href="https://techhounds.com/FRC%20Fantasy/register.php" class="menubartext">Register</a>
@@ -43,10 +43,9 @@
 			</div>
 		</div>
 		
-		<div class="net">
-			<div class="paper">
-				<h2>About</h2>
-				<p>FRC Fantasy is a website based off of the FIRST Robotics program. The website allows users to participate in fantasy leagues based on the performances of FIRST Robotics teams during their competitions.</p>
+		<div class="leaguetop">
+			<div>
+				<p>
 			</div>
 		</div>
 	</body>

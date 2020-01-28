@@ -2,11 +2,6 @@
 <?php
 $error = null;
 $loggedIn = false;
-if(isset($_GET["r"])){
-	
-	header("Location:"."http://www.techhounds.com/FRC%20Fantasy/index.html");
-	
-}
 if(isset($_POST['username'])){
 	$username = $_POST['username'];
 	$password = $_POST['password'];
@@ -46,19 +41,25 @@ if(isset($_POST['username'])){
 			mysqli_query($conn,$query);
 		}
 	}
-	
 }
 
+if($loggedIn) {
+	$cookie_name = "username";
+	$cookie_value = $username;
+	echo "<script>console.log('" . $cookie_value . "');</script>";
+	setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
+	echo "<script>window.location.href = 'https://techhounds.com/FRC%20Fantasy/index.html'</script>";
+}
 ?>
 
 <html>
 	<head>
         <title>Login - FantasyFRC</title>
-		<link rel="stylesheet" type="text/css" href="fantasy.css?version=20">
+		<link rel="stylesheet" type="text/css" href="fantasy.css?version=24">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=20"></script>
+		<script src="fantasy.js?version=24"></script>
 	</head>
-	<body style="background-color:#cccccc" onload="getCookie()">
+	<body style="background-color:#cccccc" onload="loggedIn();">
 		<div id="navbar" class="navbar">
 			<div class="nl">
 				<a href="https://techhounds.com/FRC%20Fantasy/index.html"><img class="navLogo" src="finalColorFantasyLogo.png?version=1" /></a>
@@ -67,13 +68,13 @@ if(isset($_POST['username'])){
 				<a href="https://techhounds.com/FRC%20Fantasy/index.html" class="menubartext">Home</a>
 			</div>
 			<div id="team" class="menubar">
-				<p class="menubartext">My Team</p>
+				<a href="https://techhounds.com/FRC%20Fantasy/myTeam.php" class="menubartext">My Team</a>
 			</div>
 			<div id="league" class="menubar">
-				<a href="https://techhounds.com/FRC%20Fantasy/league.html" class="menubartext">League Home</a>
+				<a href="https://techhounds.com/FRC%20Fantasy/league.php" class="menubartext">League Home</a>
 			</div>
 			<div id="teams" class="menubar">
-				<p class="menubartext">Teams</p>
+				<a href="https://techhounds.com/FRC%20Fantasy/team.php" class="menubartext">Teams</a>
 			</div>
 			<div id="register" class="menubar menuBarRight">
 				<a href="https://techhounds.com/FRC%20Fantasy/register.php" class="menubartext">Register</a>
@@ -81,8 +82,11 @@ if(isset($_POST['username'])){
 			<div id="login" class="menubar menuBarRight">
 				<a href="https://techhounds.com/FRC%20Fantasy/login.php" class="menubartext">Login</a>
 			</div>
-			<div id="profile" class="menubar menuBarRight">
-				<p id="profileName" href="" class="menubartext"></p>
+			<div id="profile" class="menubar menuBarRight" style="display: none">
+				<p id="profileName" class="menubartext" style="display: none"></p>
+			</div>
+			<div id="out" class="menubar menuBarRight" style="display: none">
+				<a id="signOut" href = "./signOut.php" class="menubartext" style="display: none">Sign Out</a>
 			</div>
 			<div id="n2" class="n2">
 				<img id="navLogoMobile" class="navLogoMobile" src="finalColorFantasyLogo.png?version=1"/>
@@ -91,19 +95,6 @@ if(isset($_POST['username'])){
 					<p id="menubartextbottom" class="menubartextbottom" onclick="menufunction();">&#9586&#9585</p>
 			</div>
 		</div>
-		
-		<?php
-			if($loggedIn) {
-				$_COOKIE['username'] = $username;
-				setcookie("username",$username,time()+(2*24*60*60),'/');
-				echo "<div class='success'><p>Logged in. Redirecting in 5 seconds..</p></div>";
-				sleep(5);
-				header("Location:"."http://www.techhounds.com/FRC%20Fantasy/php/redirect.php?redirect=login");
-				exit();
-			} else if($error != null) {
-				echo "<div class='error'><p>".$error."</p></div>";
-			}
-		?>
         <div class="box">
             <form method="post" name="login" action="">
                 <h1>Login</h1>
