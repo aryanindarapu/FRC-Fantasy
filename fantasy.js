@@ -1,3 +1,6 @@
+/*
+	In mobile mode, opens and closes menu
+*/
 function menufunction() {
 	if(getComputedStyle(document.getElementById("home"),null).display == "block") { 
 		console.log("Success!");
@@ -30,7 +33,7 @@ function menufunction() {
 }
 
 /*
-Splits up cookie into parts to get cookie value
+	Splits up cookie into parts to get cookie value
 */
 function getCookie() {
 	var name = "username=";
@@ -46,15 +49,26 @@ function getCookie() {
 		}
 	}
 	return "";
-	loggedIn();
 }
+
 var user = getCookie();
+
+/*
+	If user is logged in: 
+		- remove register/sign in buttons
+		- add profile/log out buttons
+		- display username
+*/
 function loggedIn() {
-	document.getElementById("login").removeChild(document.getElementById("login").childNodes[1]);
-	document.getElementById("login").remove();
-	document.getElementById("register").removeChild(document.getElementById("register").childNodes[1]);
-	document.getElementById("register").remove();
-	document.getElementById("profile").style.display = "inline-block";
-	document.getElementById("profileName").style.display = "inline-block";
-	document.getElementById("profileName").innerHTML = user;
+	if(user != ""|null) {
+		document.getElementById("login").removeChild(document.getElementById("login").childNodes[1]);
+		document.getElementById("login").remove();
+		document.getElementById("register").removeChild(document.getElementById("register").childNodes[1]);
+		document.getElementById("register").remove();
+		document.getElementById("profile").style.display = "inline-block";
+		document.getElementById("profileName").style.display = "inline-block";
+		document.getElementById("profileName").innerHTML = user;
+		document.getElementById("out").style.display = "inline-block";
+		document.getElementById("signOut").style.display = "inline-block";
+	}
 }

@@ -5,11 +5,14 @@
 	$username = $_POST["username"];
 	$division = $_POST["d"];
 	
+	//Connect to MySQL Database through the loginUser, straight to the fantasy frc database
 	$conn = mysqli_connect('localhost','loginUser','techhounds','fantasyfrc');
 	if(mysqli_connect_errno())
 	{
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
+	
+	//Insert the person into the division
 	$query = "INSERT INTO divisions VALUES ('".$username."','".$division."')";
 	mysqli_query($conn, $query);
 	

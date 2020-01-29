@@ -1,7 +1,17 @@
-
+<html>
+	<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<title>Join a League</title>
+		<link rel="stylesheet" type="text/css" href="fantasy.css?version=26">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="fantasy.js?version=26"></script>
+	</head>
+	<body style="background-color:#cccccc" onload="loggedIn();">
 <?php
-$error = null;
-$loggedIn = false;
+if(isset($_GET["id"])) {
+	//POPULATE FORM FIELDS
+	
+}
 if(isset($_POST['username'])){
 	/*
 		$username set to form entered username
@@ -56,47 +66,47 @@ if(isset($_POST['username'])){
 		$username = $row['name'];
 		$dbpass = $row['password'];
 		if($hashed_password === $dbpass) {
-			$loggedIn = true;
-			$online = 1;
-			$query = "UPDATE fantasyusers SET online = 1 WHERE id='".$row['id']."'";
-			mysqli_query($conn,$query);
+			//send AJAX request to joinLeague.php
+			$lCode = $_POST["LeagueCode"];
+			$lPass = $_POST["LeaguePassword"];
+			echo "<script>\n";
+			echo "$.ajax({\n"
+				. "url: './php/joinLeague.php',\n"
+				. "type: 'POST',\n"
+				. "data: { 'LeagueCode':'" . $lCode . "',"
+				. "'Password': '" . $lPass . "',"
+				. "'username': '" . $username . "'},\n"
+				. "success: function(aData) {\n"
+				. "console.log(aData);\n"
+			. "}});";
+			echo "</script>";
 		}
 	}
 }
 
-/*
-	If $loggedIn is true:
-		- echo $username to console
-		- set cookie with name "username" to value of logged in username from above function
-		- set cookie to expire in 30 days
-		- redirect to index (home) page
-*/
-if($loggedIn) {
-	$cookie_name = "username";
-	$cookie_value = $username;
-	echo "<script>console.log('" . $cookie_value . "');</script>";
-	setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
-	echo "<script>window.location.href = 'https://techhounds.com/FRC%20Fantasy/index.html'</script>";
-}
+
 ?>
 
-<html>
-	<head>
-        <title>Login - FantasyFRC</title>
-		<link rel="stylesheet" type="text/css" href="fantasy.css?version=26">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=26"></script>
-	</head>
-	<body style="background-color:#cccccc" onload="loggedIn();">
+	
+
 		<script src='nav.js'></script>
-        <div class="box">
-            <form method="post" name="login" action="">
-                <h1>Login</h1>
+		<div class="box">
+            <form method="post" name="verify" action="">
+                <h1>Join A League</h1>
                 <label for="username">Username: </label>
                 <input name="username" id="username" type="text" /></br>
                 <label for="password">Password: </label>
                 <input name="password" id="password" type="password" /></br>
-                <input type="submit" value="Log In" onclick="loggedIn()"/>
+				<?php
+					if(isset($_GET["id"])) {
+						//POPULATE FORM FIELDS
+						$leagueCode = $_GET["code"];
+						$leaguePass = $_GET["key"];
+						echo "<input name='LeagueCode' id='LeagueCode' style='display:none;' type='text' value='" . $leagueCode ."/>";
+						echo "<input name='LeaguePassword' id='LeaguePassword' style='display:none;' type='text' value='" . $leaguePass . " />";
+					}
+				?>
+				<input type="submit" value="Log In" />
             </form>
         </div>
 	</body>
