@@ -1,7 +1,7 @@
 document.write(
  '<div id="navbar" class="navbar">\
 			<div class="nl">\
-				<a href="./index.html"><img class="navLogo" src="./finalColorFantasyLogo.png?version=1" \></a>\
+				<a href="./index.html"><img class="navLogo" src="FantasyLogo000.png" \></a>\
 			</div>\
 			<div id="home" class="menubar">\
 				<a href="./index.html" class="menubartext">Home</a>\
@@ -18,7 +18,7 @@ document.write(
 			<div id="register" class="menubar menuBarRight">\
 				<a href="./register.php" class="menubartext">Register</a>\
 			</div>\
-			<div id="login" class="menubar menuBarRight">\
+			<div id="login" class="menubar">\
 				<a href="./login.php" class="menubartext">Login</a>\
 			</div>\
 			<div id="profile" class="menubar menuBarRight" style="display: none">\

@@ -72,3 +72,8 @@ function loggedIn() {
 		document.getElementById("signOut").style.display = "inline-block";
 	}
 }
+
+function settings() {
+	document.getElementById("verify").style.display = "none";
+	document.getElementById("prof").style.display = "inline-block";
+}

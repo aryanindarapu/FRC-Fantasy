@@ -2,12 +2,13 @@
 <html>
 	<head>
 		<title>FantasyFRC</title>
-        <link rel="stylesheet" type="text/css" href="fantasy.css?version=29">
+        <link rel="stylesheet" type="text/css" href="fantasy.css?version=33">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=29"></script>
+		<script src="fantasy.js?version=33"></script>
+		<link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
 	</head>
-	<body style="background-color:#cccccc" onload="loggedIn();">
-		<script src='nav.js?version=29'></script>
+	<body style="background-color:#cccccc; font-family: 'Oswald', sans-serif; letter-spacing: .05em;" onload="loggedIn();">
+		<script src='nav.js?version=33'></script>
 		
 		<div class="leaguetop">
 			<div>

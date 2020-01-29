@@ -103,7 +103,7 @@ input[type=submit] {
 
 .menubar {
 	height: 2em;
-	width: 15%;
+	width: 10%;
 	display: inline-block;
 	vertical-align: middle;
 	text-align: center;
@@ -120,11 +120,14 @@ input[type=submit] {
 }
 
 .menuBarRight {
-	float: right;
-	width: 10%;
-    font-size: 1em;
-    padding-top: 5px;
+	padding-left: 17em;
+	width: 5%;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+    font-size: 1.2em;
 }
+
 .nl {
 	height: 100%;
 	width: 15%;

@@ -33,6 +33,8 @@ if(isset($_POST["LeagueName"])) {
 	$leagueCode = "code";
 	if(mysqli_num_rows($results) === 0) {
 		echo "Failed when retrieving League Info";
+		mysqli_close();
+		die("");
 	} else {
 		$row = mysqli_fetch_assoc($results);
 		//Fetch League ID and make it globally accessible for the rest of the script
@@ -64,8 +66,9 @@ if(isset($_POST["LeagueName"])) {
 	mysqli_query($conn, $query);
 	//Generate a GET link with properties:
 	//id, code, key
-	
+	mysqli_close();
 	echo "<h1>Your Link is:\n</h1><br>";
+	//Generate and Output Link with the values
 	echo "https://www.techhounds.com/FRC%20Fantasy/join.php?id=" . $lID . "&code=" . $leagueCode . "&key=" . $hashed_password;
 	echo "<br><h2>DON'T LOSE IT! We cant help you get it back if you lose it!</h2>";
 } else {
