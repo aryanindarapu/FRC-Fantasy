@@ -42,13 +42,13 @@ function getCookie() {
 			c = c.substring(1);
 		}
 		if (c.indexOf(name) == 0) {
-			var user = c.substring(name.length, c.length);
-			loggedIn();
+			return c.substring(name.length, c.length);
 		}
 	}
+	return "";
+	loggedIn();
 }
-
-
+var user = getCookie();
 function loggedIn() {
 	document.getElementById("login").removeChild(document.getElementById("login").childNodes[1]);
 	document.getElementById("login").remove();

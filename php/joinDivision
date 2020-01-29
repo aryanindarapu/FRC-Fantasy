@@ -1,0 +1,17 @@
+<?php
+	/* When sending AJAX to this page send d as division code
+	 - and username as username
+	 */
+	$username = $_POST["username"];
+	$division = $_POST["d"];
+	
+	$conn = mysqli_connect('localhost','loginUser','techhounds','fantasyfrc');
+	if(mysqli_connect_errno())
+	{
+		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	}
+	$query = "INSERT INTO divisions VALUES ('".$username."','".$division."')";
+	mysqli_query($conn, $query);
+	
+	mysqli_close($conn);
+?>

@@ -120,14 +120,14 @@ input[type=submit] {
 }
 
 .menuBarRight {
-	float: left;
-	height: 2em;
+	padding-left: 17em;
 	width: 5%;
 	display: inline-block;
 	vertical-align: middle;
 	text-align: center;
     font-size: 1.2em;
 }
+
 .nl {
 	height: 100%;
 	width: 15%;

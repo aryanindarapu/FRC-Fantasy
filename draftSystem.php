@@ -6,25 +6,13 @@
 	if (isset($_COOKIE["username"])){
 		$username = $_COOKIE["username"];
 		$loggedIn = true;
+		header("Refresh: 3");
 	} else {
 		//Redirect to login page
 		header("Location:login.php");
 	}
 	
 	//GET user division, then load table for that division.
-	$division;
-	$query = "SELECT * FROM divisions WHERE username='".$username."'";
-		$conn = mysqli_connect('localhost','loginUser','techhounds','fantasyfrc');
-	$result = mysqli_query($conn, $query);
-	
-	if(mysqli_num_rows($result) === 0) {
-		$error = "RIP";
-	} else {
-		$row = mysqli_fetch_assoc($result);
-		$division = $row['division'];
-	}
-	$query = "SELECT * FROM drafted_teams WHERE divison='".$division."' AND username IS NULL";
-	$GLOBALS['results'] = mysqli_query($conn,$query);
 	
 	
 	
@@ -124,14 +112,33 @@
 		<th>Pick Team</th>
 	</tr>
 <?php
-	while($row = mysqli_fetch_assoc($GLOBALS['results'])) {
-		echo "<tr>";
-		echo "<td></td><td></td><td></td>";
-		echo "<td>".$row["team_num"]."</td>";
-		echo "<td></td><td></td>";
-		echo "<td><button onclick=\"draftAnnouncement(this)\">Pick</button></td>";
-		echo "</tr>";
+	$division;
+	$query = "SELECT * FROM divisions WHERE username='".$username."'";
+		$conn = mysqli_connect('localhost','loginUser','techhounds','fantasyfrc');
+	$result = mysqli_query($conn, $query);
+	
+	if(mysqli_num_rows($result) === 0) {
+		$error = "RIP";
+	} else {
+		$row = mysqli_fetch_assoc($result);
+		$division = $row['division'];
 	}
+	
+
+	$query = "SELECT * FROM drafted_teams WHERE division='".$division."' AND username IS NULL";
+	$results = mysqli_query($conn,$query);
+	
+	if(mysqli_num_rows($result) > 0) {
+		while($row = mysqli_fetch_assoc($results)) {
+			echo "<tr>";
+			echo "<td></td><td></td><td></td>";
+			echo "<td>".$row["team_num"]."</td>";
+			echo "<td></td><td></td>";
+			echo "<td><button onclick=\"draftAnnouncement(this)\">Pick</button></td>";
+			echo "</tr>";
+		}
+	}
+	
 	?>
 </table>
 
@@ -291,7 +298,7 @@
 		
 		
 		var row = elementId.parentNode.parentNode.rowIndex;
-		var teamNum = document.getElementById("results-table").rows[row].cells[3].innerHTML;
+		var teamNum = document.getElementById("drafting-table").rows[row].cells[3].innerHTML;
 		var name = "<?php echo $username; ?>";
 		
 		$.ajax({
@@ -303,10 +310,10 @@
 				console.log(aData);
 			}
 		});
-		document.getElementById("results-table").deleteRow(row);
+		document.getElementById("drafting-table").deleteRow(row);
 		alert("You have drafted team " + teamNum);
-		var table = document.getElementById("results-table");
-		var length = document.getElementById("results-table").rows.length;
+		var table = document.getElementById("drafting-table");
+		var length = document.getElementById("drafting-table").rows.length;
 		for(var i = 0; i < length; i++) {
 				var r = table.rows[i];
 				r.deleteCell(6);
@@ -318,32 +325,66 @@
 	//LOAD ALL DRAFTING DATA
 	var table = document.getElementById("drafting-table");
 	var length = document.getElementById("drafting-table").rows.length;
-	$.getJSON('https://cors-anywhere.herokuapp.com/'+ 'https://www.thebluealliance.com/api/v3/district/2020in/teams',
-		function(aData) {
-			for(var i = 1; i < length; i++) {
-				var r = table.rows[i];
-				var nickname = r.cells[0];
-				var joined = r.cells[1];
-				var website = r.cells[2];
-				var teamnum = parseInt(r.cells[3].innerHTML);
-				var avgOPR = r.cells[4];
-				var avgDPR = r.cells[5];
-				
-				var oprNum = getTeamOPR(teamnum);
-				var dprNum = getTeamDPR(teamnum);
-				
-				avgOPR.innerHTML = oprNum;
-				avgDPR.innerHTML = dprNum;
-				for(var j = 0; j < aData.length; j++) {
-					if(teamnum == aData[j].team_number) {
-						nickname.innerHTML = aData[j].nickname;
-						joined.innerHTML = aData[j].rookie_year;
-						website.innerHTML = aData[j].website;
-						break;
-					}
-				}					
-			}
-		});
+	if(localStorage.getItem("teams") == null) {
+			$.ajaxSetup({
+				headers : {
+					'X-TBA-Auth-Key':'VG6oKsnz6E2EheeIFFkZwHjcAT66vwpttZTXWmXyPOSMyjmRyrA9Q5I8cUeiZTeJ',
+					'accept':'application/json'
+				}
+			});
+		$.getJSON('https://cors-anywhere.herokuapp.com/'+ 'https://www.thebluealliance.com/api/v3/district/2020in/teams',
+			function(aData) {
+				for(var i = 1; i < length; i++) {
+					var r = table.rows[i];
+					var nickname = r.cells[0];
+					var joined = r.cells[1];
+					var website = r.cells[2];
+					var teamnum = parseInt(r.cells[3].innerHTML);
+					var avgOPR = r.cells[4];
+					var avgDPR = r.cells[5];
+					
+					
+					var oprNum = getTeamOPR(teamnum);
+					var dprNum = getTeamDPR(teamnum);
+					
+					
+					avgOPR.innerHTML = oprNum;
+					avgDPR.innerHTML = dprNum;
+					localStorage.setItem(teamnum + ":OPR",oprNum);
+					localStorage.setItem(teamnum + ":DPR",dprNum);
+					for(var j = 0; j < aData.length; j++) {
+						if(teamnum == aData[j].team_number) {
+							nickname.innerHTML = aData[j].nickname;
+							joined.innerHTML = aData[j].rookie_year;
+							website.innerHTML = aData[j].website;
+							
+							localStorage.setItem(teamnum + ":nickname",aData[j].nickname);
+							localStorage.setItem(teamnum + ":joined",aData[j].rookie_year);
+							localStorage.setItem(teamnum + ":website",aData[j].website);
+							break;
+						}
+					}					
+				}
+				localStorage.setItem("teams","saved");
+			});
+	} else {
+		for(var i = 1; i < length; i++) {
+			var r = table.rows[i];
+			var nickname = r.cells[0];
+			var joined = r.cells[1];
+			var website = r.cells[2];
+			var teamnum = parseInt(r.cells[3].innerHTML);
+			var avgOPR = r.cells[4];
+			var avgDPR = r.cells[5];
+			
+			nickname.innerHTML = localStorage.getItem(teamnum + ":nickname");
+			joined.innerHTML = localStorage.getItem(teamnum + ":joined");
+			website.innerHTML = localStorage.getItem(teamnum + ":website");
+			avgOPR.innerHTML = localStorage.getItem(teamnum + ":OPR");
+			avgDPR.innerHTML = localStorage.getItem(teamnum + ":DPR");
+		}
+	}
+	
 	
 	</script>
 </body>
