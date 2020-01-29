@@ -4,12 +4,12 @@
 <html>
 <head>
 	<title>League Creation</title>
-	<link rel="stylesheet" type="text/css" href="fantasy.css?version=26">
+	<link rel="stylesheet" type="text/css" href="fantasy.css?version=29">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="fantasy.js?version=26"></script>
+	<script src="fantasy.js?version=29"></script>
 </head>
 <body>
-	<script src='nav.js'></script>
+	<script src='nav.js?version=29'></script>
 	<form action="./php/createLeague.php" method="POST">
 		<input type="text" name="LeagueName" id="LeagueName" placeholder="League Name" />
 		<select name="Region" id="Region">

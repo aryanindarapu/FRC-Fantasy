@@ -64,7 +64,10 @@ if(isset($_POST["LeagueName"])) {
 	mysqli_query($conn, $query);
 	//Generate a GET link with properties:
 	//id, code, key
+	
+	echo "<h1>Your Link is:\n</h1><br>";
 	echo "https://www.techhounds.com/FRC%20Fantasy/join.php?id=" . $lID . "&code=" . $leagueCode . "&key=" . $hashed_password;
+	echo "<br><h2>DON'T LOSE IT! We cant help you get it back if you lose it!</h2>";
 } else {
 	echo "You shouldn't be here";
 }

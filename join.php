@@ -74,7 +74,7 @@ if(isset($_POST['username'])){
 				. "url: './php/joinLeague.php',\n"
 				. "type: 'POST',\n"
 				. "data: { 'LeagueCode':'" . $lCode . "',"
-				. "'Password': '" . $lPass . "',"
+				. "'LeaguePassword': '" . $lPass . "',"
 				. "'username': '" . $username . "'},\n"
 				. "success: function(aData) {\n"
 				. "console.log(aData);\n"
@@ -102,8 +102,8 @@ if(isset($_POST['username'])){
 						//POPULATE FORM FIELDS
 						$leagueCode = $_GET["code"];
 						$leaguePass = $_GET["key"];
-						echo "<input name='LeagueCode' id='LeagueCode' style='display:none;' type='text' value='" . $leagueCode ."/>";
-						echo "<input name='LeaguePassword' id='LeaguePassword' style='display:none;' type='text' value='" . $leaguePass . " />";
+						echo "<input name='LeagueCode' id='LeagueCode' style='display:none;' type='text' value='" . $leagueCode ."'>";
+						echo "<input name='LeaguePassword' id='LeaguePassword' style='display:none;' type='text' value='" . $leaguePass . "'>";
 					}
 				?>
 				<input type="submit" value="Log In" />
