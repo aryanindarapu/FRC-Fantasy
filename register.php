@@ -2,9 +2,9 @@
 <html>
 	<head>
 		<title>Register - Fantasy FRC</title>
-		<link rel="stylesheet" type="text/css" href="fantasy.css?version=24">
+		<link rel="stylesheet" type="text/css" href="fantasy.css?version=26">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=24"></script>
+		<script src="fantasy.js?version=26"></script>
 	</head>
 	<body style="background-color:#cccccc" onload="loggedIn();">
 		<?php
@@ -28,7 +28,14 @@
 			
 			$username_set = isset($_POST['username']) && ($username != "");
 			//First: Check If username exists in database
-			if($username_set) {
+			$query = "select * from fantasyusers where name = '".$username."' or email = '".$email."';";
+			$duplicate = false;
+			$results = mysqli_query($conn, $query);
+			if (mysqli_num_rows($results) !== 0) {
+				$duplicate = true;
+				$error = "Username already exists!";
+			}
+			if($username_set && !$duplicate) {
 				$query = 'INSERT INTO fantasyusers (name,password,email) VALUES ("'.$username.'","'.$hashed_password.'","'.$email.'");';
 				mysqli_query($conn,$query);
 				$newQuery = "UPDATE fantasyusers SET online = 0 WHERE name = '".$username."';";
@@ -44,41 +51,7 @@
 				echo "</div>";
 			}
 		?>
-		<div id="navbar" class="navbar">
-			<div class="nl">
-				<a href="https://techhounds.com/FRC%20Fantasy/index.html"><img class="navLogo" src="finalColorFantasyLogo.png?version=1" /></a>
-			</div>
-			<div id="home" class="menubar">
-				<a href="https://techhounds.com/FRC%20Fantasy/index.html" class="menubartext">Home</a>
-			</div>
-			<div id="team" class="menubar">
-				<a href="https://techhounds.com/FRC%20Fantasy/myTeam.php" class="menubartext">My Team</a>
-			</div>
-			<div id="league" class="menubar">
-				<a href="https://techhounds.com/FRC%20Fantasy/league.php" class="menubartext">League Home</a>
-			</div>
-			<div id="teams" class="menubar">
-				<a href="https://techhounds.com/FRC%20Fantasy/team.php" class="menubartext">Teams</a>
-			</div>
-			<div id="register" class="menubar menuBarRight">
-				<a href="https://techhounds.com/FRC%20Fantasy/register.php" class="menubartext">Register</a>
-			</div>
-			<div id="login" class="menubar menuBarRight">
-				<a href="https://techhounds.com/FRC%20Fantasy/login.php" class="menubartext">Login</a>
-			</div>
-			<div id="profile" class="menubar menuBarRight" style="display: none">
-				<p id="profileName" class="menubartext" style="display: none"></p>
-			</div>
-			<div id="out" class="menubar menuBarRight" style="display: none">
-				<a id="signOut" href = "./signOut.php" class="menubartext" style="display: none">Sign Out</a>
-			</div>
-			<div id="n2" class="n2">
-				<img id="navLogoMobile" class="navLogoMobile" src="finalColorFantasyLogo.png?version=1"/>
-			</div>
-			<div class="menubarbottom">
-					<p id="menubartextbottom" class="menubartextbottom" onclick="menufunction();">&#9586&#9585</p>
-			</div>
-		</div>
+		<script src='nav.js'></script>
 		
 		<div class="box">
 			<form method="post" name="login" action="">
