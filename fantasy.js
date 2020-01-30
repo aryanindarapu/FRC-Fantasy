@@ -65,7 +65,8 @@ function loggedIn() {
 		document.getElementById("login").remove();
 		document.getElementById("register").removeChild(document.getElementById("register").childNodes[1]);
 		document.getElementById("register").remove();
-		document.getElementById("teams").style.display = "inline-block";
+		document.getElementById("team").style.display = "inline-block";
+		document.getElementById("league").style.display = "inline-block";
 		document.getElementById("profile").style.display = "inline-block";
 		document.getElementById("profileName").style.display = "inline-block";
 		document.getElementById("profileName").innerHTML = user;
