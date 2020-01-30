@@ -13,7 +13,7 @@ document.write(
 				<a href="./league.php" class="menubartext">League Home</a>\
 			</div>\
 			<div id="teams" class="menubar">\
-				<a href="./team.php" class="menubartext">Teams</a>\
+				<a href="./team.php" class="menubartext" style="display: none;">Teams</a>\
 			</div>\
 			<div id="register" class="menubar menuBarRight">\
 				<a href="./register.php" class="menubartext">Register</a>\
