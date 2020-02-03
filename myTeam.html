@@ -2,9 +2,9 @@
 <html>
 	<head>
 		<title>FantasyFRC</title>
-        <link rel="stylesheet" type="text/css" href="fantasy.css?version=20">
+        <link rel="stylesheet" type="text/css" href="fantasy.css?version=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=20"></script>
+		<script src="fantasy.js?version=1"></script>
 	</head>
 	<body style="background-color:#cccccc" onload="getCookie()">
 		<div id="navbar" class="navbar">
@@ -39,6 +39,69 @@
 		
 		<div class="myteamtop">
 			<div>
+				<style>
+					body {
+						margin: 0;
+						padding: 0;
+						box-sizing: border-box;
+						
+					}
+					table {
+						border-collapse: collapse;
+					}
+					tr {
+						border: 1px solid black;
+					}
+					td {
+						border: 1px solid black;
+					}
+					.nav {
+						display: block;
+						height: 2.5em;
+						margin: 0;
+						padding: 0;
+						box-sizing: border-box;
+						background-color: #333;
+						width: 100%;
+						color: white;
+					}
+					.nav nav ul {
+						display: block;
+						list-style: none;
+						margin: 0;
+						padding: 0;
+					}
+					.nav nav ul li {
+						text-align: center;
+						display: inline-block;
+						box-sizing: border-box;
+						padding: .6em;
+						height: 2.5em;
+					}
+					.nav nav ul li:hover {
+						background-color: #5a5a5a;
+						cursor: pointer;
+					}
+					.nav nav { display: block; };
+					
+					</style>
+				<div class="nav">
+					<nav>
+						<ul>
+							<li>
+								Team 1
+							</li>
+							<li>
+								Team 2
+							</li>
+							<li>
+								Team 3
+							</li>
+						<ul>
+					</nav>
+				</div>
+				<table id = "statTable" style = "display:none"></table>
+				<table id = "statTable" style = "display:none"></table>
 			</div>
 		</div>
 	</body>

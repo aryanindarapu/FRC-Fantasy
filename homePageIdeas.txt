@@ -1,0 +1,4 @@
+For the home page in Fantasy FRC, we can add a system that takes the scores of every match from the Blue Alliance
+and add a scroll wheel to navigate through all of the scores. This section could be called Recent Matches or something.
+
+We can add a footer with all of our contact info and also have the About description of the use of this website.

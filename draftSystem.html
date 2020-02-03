@@ -3,7 +3,7 @@
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<title>Draft System</title>
-	<script src="draftAPI.js"></script>
+	<script src="draftAPI.js?version=1"></script>
 	<style>
 	body {
 		margin: 0;
@@ -137,6 +137,7 @@
 
 	}
 	function getTeamInfoSuccess(data) {
+		console.log(data);	
 		var body = document.getElementById('searchData').style.display = "none";
 		document.getElementById('currentTeams').style.display = "none";
 		var table = document.getElementById('results-table');

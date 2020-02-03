@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<title>League Creation</title>
+		<link rel="stylesheet" type="text/css" href="fantasy.css?version=19">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="fantasy.js?version=1"></script>
+		<link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+	</head>
+	<body style="background-color:#cccccc; font-family: 'Oswald', sans-serif; letter-spacing: 0.05em">
+		<script src='nav.js?version=1'></script>
+		<div class="box">
+			<h1 class="leagueHeader">Create A League</h1>
+			<form action="./php/createLeague.php" method="POST" class="leagueName">
+				<label for="leagueName" class="input">League Name:</label></br>
+				<input type="text" name="LeagueName" id="LeagueName" placeholder="League Name" class="registerTextBoxes"/></br>
+				<label for="leagueLocation" class="input">League Location:</label></br>
+				<select name="Region" id="Region"></br>
+					<option value="IND"  class="locationDropbox">Indiana</option></br>
+				</select></br></br>
+				<label for="leaguePassword" class="input">League Password:</label></br>
+				<input type="password" name="Password" id="Password" placeholder="League Password" class="registerTextBoxes"/></br>
+				<!-- Hidden Username field to pass in the username value easily -->
+				<input style="display:none;" type="text" name="username" id="username" value="<?php echo $username; ?>"/>
+				<input type="submit" name="creation" value="Create League" class="button"/></br>
+			</form>
+		</div>
+	</body>
+</html>

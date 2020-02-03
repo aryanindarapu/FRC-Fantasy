@@ -235,7 +235,6 @@ function getFRCTeamSuccess(data) {
 		var table = document.getElementById('results-table');
 		table.innerHTML = "";
 		table.style.display = "block";
-		
 		//Insert Header
 		var row = table.insertRow(0);
 		var nickname = row.insertCell(0);
