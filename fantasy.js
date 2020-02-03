@@ -59,6 +59,7 @@ var user = getCookie();
 		- add profile/log out buttons
 		- display username
 */
+
 function loggedIn() {
 	if(user != ""|null) {
 		document.getElementById("login").removeChild(document.getElementById("login").childNodes[1]);
@@ -67,15 +68,14 @@ function loggedIn() {
 		document.getElementById("register").remove();
 		document.getElementById("team").style.display = "inline-block";
 		document.getElementById("league").style.display = "inline-block";
+		document.getElementById("team").className = "menubar";
+		document.getElementById("league").className = "menubar";
+		document.getElementById("profile").className = "menubar menuBarRight";
+		document.getElementById("out").className = "menubar menuBarRight";
 		document.getElementById("profile").style.display = "inline-block";
 		document.getElementById("profileName").style.display = "inline-block";
 		document.getElementById("profileName").innerHTML = user;
 		document.getElementById("out").style.display = "inline-block";
 		document.getElementById("signOut").style.display = "inline-block";
 	}
-}
-
-function settings() {
-	document.getElementById("verify").style.display = "none";
-	document.getElementById("prof").style.display = "inline-block";
 }

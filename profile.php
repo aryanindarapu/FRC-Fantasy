@@ -5,6 +5,7 @@ $password = null;
 $query = null;
 $error = null;
 $conn = mysqli_connect('localhost','loginUser','techhounds','fantasyfrc');
+echo '<script src="fantasy.js?version=1"></script>';
 
 if(mysqli_connect_errno()) {
 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -26,11 +27,14 @@ if(isset($_COOKIE["username"])){
 			$dbpass = $row['password'];
 			$email = $row['email'];
 			if($hashed_password === $dbpass) {
-				//Run your code here (Or set a global value to run it other places)
-				echo "<script>document.getElementById('profUser').innerHTML = '". $username ."';</script>";
-				echo "<script>document.getElementById('profEmail').innerHTML = '". $email ."';</script>";
-				echo "<script>settings();</script>";
+				echo "<script>setTimeout(settings, 300);</script>";
 				echo "<script>console.log('Settings visible!')</script>";
+				$cookie_user = "username";
+				$cookie_mail = "email";
+				$cookie_userval = $username;
+				$cookie_mailval = $email;
+				setcookie($cookie_user, $cookie_userval, time() + (86400 * 30), "/"); // 86400 = 1 day
+				setcookie($cookie_mail, $cookie_mailval, time() + (86400 * 30), "/"); // 86400 = 1 day
 			} else {
 				$error = "Incorrect Password!";
 			}
@@ -49,14 +53,24 @@ if($error != null) {
 <html>
 	<head>
         <title>Profile - FantasyFRC</title>
-		<link rel="stylesheet" type="text/css" href="fantasy.css?version=33">
+		<link rel="stylesheet" type="text/css" href="fantasy.css?version=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=33"></script>
+		<script src="fantasy.js?version=1"></script>
 		<link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
 	</head>
+	<script>
+		var username = '<?php echo $username; ?>'
+		var email = '<?php echo $email; ?>'
+		function settings() {
+			document.getElementById("verify").style.display = "none";
+			document.getElementById("prof").style.display = "inline-block";
+			document.getElementById('profUser').innerHTML = username;
+			document.getElementById('profEmail').innerHTML = email;
+		}	
+	</script>
 	<body  style="background-color:#cccccc; font-family: 'Oswald', sans-serif; letter-spacing: .05em;" onload="loggedIn();">
-		<script src='nav.js?version=33'></script>
-		<div class="box">
+		<script src='nav.js?version=1'></script>
+		<div id="verify" class="box">
             <form method="post" name="login" action="">
                 <h1>Verify Your Account</h1>
                 <label for="password">Password: </label>
@@ -64,7 +78,7 @@ if($error != null) {
                 <input type="submit" value="Enter" onclick="loggedIn()"/>
             </form>
         </div>
-		<div id="prof" style="display: none"
+		<div id="prof" style="display: none">
 			<h2>Profile Information</h2>
 			<div class="net">
 				<div class="paper">
@@ -77,7 +91,7 @@ if($error != null) {
 			<h2>Settings</h2>
 			<div class="net">
 				<div class="paper">
-					<p>Reset Password</p>
+					<a href="./resetPass.php">Reset Password</a>
 					<p>Deactivate Account</p>
 				</div>
 			</div>

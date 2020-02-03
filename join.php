@@ -2,9 +2,9 @@
 	<head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<title>Join a League</title>
-		<link rel="stylesheet" type="text/css" href="fantasy.css?version=26">
+		<link rel="stylesheet" type="text/css" href="fantasy.css?version=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=26"></script>
+		<script src="fantasy.js?version=1"></script>
 	</head>
 	<body style="background-color:#cccccc" onload="loggedIn();">
 <?php

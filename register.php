@@ -2,14 +2,13 @@
 <html>
 	<head>
 		<title>Register - Fantasy FRC</title>
-		<link rel="stylesheet" type="text/css" href="fantasy.css?version=33">
+		<link rel="stylesheet" type="text/css" href="fantasy.css?version=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=33"></script>
+		<script src="fantasy.js?version=1"></script>
 		<link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
 	</head>
 	<body style="background-color:#cccccc; font-family: 'Oswald', sans-serif; letter-spacing: .05em;" onload="loggedIn();">
 		<?php
-		// Set $error as global
 		$error = null;
 		//Check if a username field is filled in form. If so start function.
 		if(isset($_POST['username'])){
@@ -30,11 +29,9 @@
 			}
 			//Set to true unless username is empty
 			$username_set = isset($_POST['username']) && ($username != "");
-			//Check If username exists in database
 			$query = "select * from fantasyusers where name = '".$username."' or email = '".$email."';";
-			//Set $duplicate as global
 			$duplicate = false;
-			//Send query to server
+			// Check if the username exists
 			$results = mysqli_query($conn, $query);
 			//If username or email is already in database, set $duplicate to true and change error message
 			if (mysqli_num_rows($results) !== 0) {
@@ -58,17 +55,16 @@
 				echo "</div>";
 			}
 		?>
-		<script src='nav.js?version=33'></script>
-		
+		<script src='nav.js?version=1'></script>
 		<div class="box">
 			<form method="post" name="login" action="">
-				<h1>FRC Fantasy Register</h1>
-				<label for="email" class="input">Email</label></br>
-				<input name="email" id="email" type="text" required></br>
+				<h1 class="registerHeader">FRC Fantasy Register</h1>
+				<label for="email" class="input">Email:</label></br>
+				<input name="email" id="email" placeholder="frcfan@gmail.com" type="text" class="registerTextBoxes" required></br>
 				<label for="username" class="input">Username:</label></br>
-				<input name="username" id="username" placeholder="username" type="text" required></br>
+				<input name="username" id="username" placeholder="Username" type="text" class="registerTextBoxes" required></br>
 				<label for="password" class="input">Password:</label></br>
-				<input name="password" id="password" type="password" required></br></br>
+				<input name="password" id="password" placeholder="Password" type="password" class="registerTextBoxes" required></br></br>
 				<input type="submit" value="Register" class="button"/>
 			</form>
 		</div>

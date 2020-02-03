@@ -76,20 +76,20 @@ if($loggedIn) {
 	$cookie_value = $username;
 	echo "<script>console.log('" . $cookie_value . "');</script>";
 	setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
-	echo "<script>window.location.href = 'https://techhounds.com/FRC%20Fantasy/index.html'</script>";
+	echo "<script>window.location.href = 'https://techhounds.com/FRC%20Fantasy/index.php'</script>";
 }
 ?>
 
 <html>
 	<head>
         <title>Login - FantasyFRC</title>
-		<link rel="stylesheet" type="text/css" href="fantasy.css?version=33">
+		<link rel="stylesheet" type="text/css" href="fantasy.css?version=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=33"></script>
+		<script src="fantasy.js?version=1"></script>
 		<link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
 	</head>
 	<body style="background-color:#cccccc; font-family: 'Oswald', sans-serif; letter-spacing: .05em;" onload="loggedIn();">
-		<script src='nav.js?version=33'></script>
+		<script src='nav.js?version=1'></script>
         <div class="box">
             <form method="post" name="login" action="">
                 <h1>Login</h1>
