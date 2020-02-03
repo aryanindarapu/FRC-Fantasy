@@ -86,9 +86,6 @@ if(isset($_POST['username'])){
 
 
 ?>
-
-	
-
 		<script src='nav.js?version=1'></script>
 		<div class="box">
             <form method="post" name="verify" action="">
