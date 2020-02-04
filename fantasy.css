@@ -112,11 +112,11 @@ input[type=submit] {
 	vertical-align: middle;
 	text-align: center;
     font-size: 1.2em;
-	margin-top: 1.1em;	
+	margin-top: 1em;	
 }
 
 .menubartext:hover{
-	border-bottom: 5px solid grey;
+	border-bottom: 3px solid orange;
 	height:2em;
 }
 
@@ -222,7 +222,6 @@ input[type=submit] {
 .box {
 	width: 300px;
 }
-
 .locationDropox{
 	position: relative;
 	display: inline-block;

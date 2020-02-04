@@ -8,10 +8,6 @@
 	</head>
 	<body style="background-color:#cccccc" onload="loggedIn();">
 <?php
-if(isset($_GET["id"])) {
-	//POPULATE FORM FIELDS
-	
-}
 if(isset($_POST['username'])){
 	/*
 		$username set to form entered username
@@ -44,21 +40,10 @@ if(isset($_POST['username'])){
 	} else {
 		$query = "SELECT * FROM fantasyusers WHERE name='".$username."'";
 	}
-	//$result stores number of rows and information from each row that returns from fuction above
+
 	$result = mysqli_query($conn, $query);
 	
-	/*
-		If no rows match $username, return an error
-		If a row matches the $username value:
-			- select row identified above
-			- set $username to stored database username (Non-case-sensitivity purposes & so username will be stored and not email)
-			- set $dpass to hashed password stored in database
-			- Check if $dpass is equal to $hashed_password. If so:
-				- set $loggedIn to true
-				- set $online to 1 (true)
-				- set $query "online" value to 1 (true)
-				- sends $query to database, updating it
-	*/
+
 	if(mysqli_num_rows($result) === 0) {
 		$error = "Incorrect Username and/or Password";
 	} else {
@@ -77,7 +62,7 @@ if(isset($_POST['username'])){
 				. "'LeaguePassword': '" . $lPass . "',"
 				. "'username': '" . $username . "'},\n"
 				. "success: function(aData) {\n"
-				. "console.log(aData);\n"
+				. "alert(aData);\n"
 			. "}});";
 			echo "</script>";
 		}
@@ -86,6 +71,9 @@ if(isset($_POST['username'])){
 
 
 ?>
+
+	
+
 		<script src='nav.js?version=1'></script>
 		<div class="box">
             <form method="post" name="verify" action="">

@@ -16,11 +16,7 @@
 					if(!is_null($row["teamThree"])) {
 						array_push($data, $row["teamThree"]);
 						if(!is_null($row["teamFour"])) {
-<<<<<<< HEAD
 							array_push($data, $row["teamFour"]);
-=======
-							array_push($data, $row["teamThree"]);
->>>>>>> 54e1521e0c1a218e933d5acfd4d92ff9931265b0
 						}
 					}
 				}

@@ -50,7 +50,6 @@ function getCookie() {
 	}
 	return "";
 }
-
 var user = getCookie();
 
 /*

@@ -35,7 +35,12 @@
 				die("Error: " . $row["username"] . " has already drafted this team");
 			}
 			//Nobody else has drafted the team
-			$query = "UPDATE " . $lCode . " SET teamOne='" . $teamnum . "' WHERE username='" . $username . "'";
+			$query = $select . "WHERE username='" . $username . "'";
+			$results = mysqli_query($conn, $query);
+			$row = mysqli_fetch_assoc($results);
+			$drafted = $row["drafted"];
+			$drafted++;
+			$query = "UPDATE " . $lCode . " SET teamOne='" . $teamnum . "', drafted=" . $drafted . " WHERE username='" . $username . "'";
 			mysqli_query($conn, $query);
 		} else if(is_null($teamTwo)) {
 			//We will use this team to draft to
@@ -47,7 +52,12 @@
 				die("Error: " . $row["username"] . " has already drafted this team");
 			}
 			//Nobody else has drafted the team
-			$query = "UPDATE " . $lCode . " SET teamTwo='" . $teamnum . "' WHERE username='" . $username . "'";
+			$query = $select . "WHERE username='" . $username . "'";
+			$results = mysqli_query($conn, $query);
+			$row = mysqli_fetch_assoc($results);
+			$drafted = $row["drafted"];
+			$drafted++;
+			$query = "UPDATE " . $lCode . " SET teamTwo='" . $teamnum . "', drafted=" . $drafted . " WHERE username='" . $username . "'";
 			mysqli_query($conn, $query);
 		} else if(is_null($teamThree)) {
 			//We will use this team to draft to
@@ -59,7 +69,12 @@
 				die("Error: " . $row["username"] . " has already drafted this team");
 			}
 			//Nobody else has drafted the team
-			$query = "UPDATE " . $lCode . " SET teamThree='" . $teamnum . "' WHERE username='" . $username . "'";
+			$query = $select . "WHERE username='" . $username . "'";
+			$results = mysqli_query($conn, $query);
+			$row = mysqli_fetch_assoc($results);
+			$drafted = $row["drafted"];
+			$drafted++;
+			$query = "UPDATE " . $lCode . " SET teamThree='" . $teamnum . "', drafted=" . $drafted . " WHERE username='" . $username . "'";
 			mysqli_query($conn, $query);
 		} else if (is_null($teamFour)) {
 			//We will use this team to draft to
@@ -71,7 +86,12 @@
 				die("Error: " . $row["username"] . " has already drafted this team");
 			}
 			//Nobody else has drafted the team
-			$query = "UPDATE " . $lCode . " SET teamFour='" . $teamnum . "' WHERE username='" . $username . "'";
+			$query = $select . "WHERE username='" . $username . "'";
+			$results = mysqli_query($conn, $query);
+			$row = mysqli_fetch_assoc($results);
+			$drafted = $row["drafted"];
+			$drafted++;
+			$query = "UPDATE " . $lCode . " SET teamFour='" . $teamnum . "', drafted=" . $drafted . " WHERE username='" . $username . "'";
 			mysqli_query($conn, $query);
 		} else {
 			mysqli_close($conn);

@@ -6,6 +6,22 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="fantasy.js?version=1"></script>
 		<link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+		<style>
+		.league {
+			background-color: #222222;
+			color: white;
+			padding: 10px;
+			display: block;
+			width: 80%;
+			margin: 0 auto;
+		}
+		.draftLink {
+			display: inline-block;
+			float: right;
+			text-decoration: none;
+			color: white;
+		}
+		</style>
 	</head>
 	<body  style="background-color:#cccccc; font-family: 'Oswald', sans-serif; letter-spacing: .05em;" onload="loggedIn();">
 		<script src='nav.js?version=1'></script>
@@ -47,7 +63,9 @@
 					}
 					if (sizeOf($leaguesIn) > 0) {
 						for ($i = 0; $i < sizeOf($leaguesIn); $i++) {
-							echo $leaguesIn[$i] . "					<a href='./draftSystem.php?league=".$leaguesInCodes[$i]."'>Go to this leagues drafting page. CHANGE THIS EVENTUALLY</a><br>" ;
+							echo "<div class='league'>\n";
+							echo $leaguesIn[$i] . "					<a class='draftLink' href='./draftSystem.php?league=".$leaguesInCodes[$i]."'>&gt;&gt;</a><br>" ;
+							echo "</div>";
 						}
 					} else {
 						$error = "You are not part of any leagues. You should try joining or starting one!";

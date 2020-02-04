@@ -57,6 +57,7 @@ if(isset($_POST["LeagueName"])) {
 		. "`Win` TEXT,"
 		. "`Loss` TEXT,"
 		. "`Owner` BOOLEAN NOT NULL DEFAULT false,"
+		. "`drafted` INT NOT NULL DEFAULT 0,"
 		. "PRIMARY KEY (`username`))";
 	mysqli_query($conn, $query);
 		

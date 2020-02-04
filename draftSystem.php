@@ -124,34 +124,60 @@
 	loadOPRS();
 	loadDPRS();
 	/* This event happens when the user drafts a team */
-	function  draftAnnouncement(elementId) {
-		/*  AJAX */
-		
-		
-		
-		
-		var row = elementId.parentNode.parentNode.rowIndex;
-		var teamNum = document.getElementById("drafting-table").rows[row].cells[3].innerHTML;
+	var myTurn = false;
+	function isMyTurn() {
 		var name = "<?php echo $username; ?>";
 		var leagueCode = "<?php echo $league; ?>";
-		
 		$.ajax({
-			url: 'draftTeam.php',
+			url:'./php/draftingTurn.php',
 			type: 'POST',
-			data: { "username":name, "teamnum":teamNum, "leagueCode":leagueCode},
+			data: {"username":name, "leagueCode":leagueCode},
 			success: function(aData) {
-				console.log("Worked");
-				alert(aData);
+				if(name == aData) {
+					myTurn = true;
+					populateTable();
+				} else {
+					myTurn= false;
+					var table = document.getElementById("drafting-table");
+					var length = document.getElementById("drafting-table").rows.length;
+					for(var i = length - 1; i >= 0; i--) {
+							var r = table.rows[i];
+							r.cells[6].innerHTML = "";
+					}
+				}
 			}
 		});
-		document.getElementById("drafting-table").deleteRow(row);
-		alert("You have drafted team " + teamNum);
-		var table = document.getElementById("drafting-table");
-		var length = document.getElementById("drafting-table").rows.length;
-		for(var i = 0; i < length; i++) {
-				var r = table.rows[i];
-				r.deleteCell(6);
+	}
+	var checkTurn = setInterval(isMyTurn,3000);
+	function  draftAnnouncement(elementId) {
+		/*  AJAX */
+		if(myTurn){
+			var row = elementId.parentNode.parentNode.rowIndex;
+			var teamNum = document.getElementById("drafting-table").rows[row].cells[3].innerHTML;
+			var name = "<?php echo $username; ?>";
+			var leagueCode = "<?php echo $league; ?>";
+			
+			$.ajax({
+				url: 'draftTeam.php',
+				type: 'POST',
+				data: { "username":name, "teamnum":teamNum, "leagueCode":leagueCode},
+				success: function(aData) {
+					console.log("Worked");
+				}
+			});
+			document.getElementById("drafting-table").deleteRow(row);
+			
+			var table = document.getElementById("drafting-table");
+			var length = document.getElementById("drafting-table").rows.length;
+			for(var i = length - 1; i >= 0; i--) {
+					var r = table.rows[i];
+					r.cells[6].innerHTML = "";
+			}
+			isMyTurn();
+		} else {
+			alert("It is not your turn!")
 		}
+		
 	}
 	</script>
 	
@@ -215,7 +241,9 @@
 										
 										avgOPR.innerHTML = oprNum;
 										avgDPR.innerHTML = dprNum;
+										if(myTurn) {
 										draft.innerHTML = "<button id='" + tnum + "' onclick='draftAnnouncement(this)'>Draft Team</button>";
+										}
 										localStorage.setItem(tnum + ":OPR",oprNum);
 										localStorage.setItem(tnum + ":DPR",dprNum);
 										localStorage.setItem(tnum + ":nickname",aData[j].nickname);
@@ -235,7 +263,7 @@
 						}
 						var teams = JSON.parse(localStorage.getItem("teams"));
 						
-						
+							var rownum = 1;
 							for(var i = 0; i < teams.length; i++) {
 								var teamnum = teams[i];								
 								var found = false;
@@ -246,13 +274,12 @@
 									var takenTeamNum = parseInt(takenArr[j],10);
 									if(takenTeamNum == teamnum) {
 										found = true;
-										// IT WOULDNT WORK IF I DIDNT PUT THIS HERE
-										table.insertRow(i+1);
+										// IT WORKS WITHOUT IT NOW MATTHEW AND NOW U DIDNT BREAK THE DRAFTING BUTTON FEATURE
 										break;
 									}
 								}
 								if(!found) {
-									var r = table.insertRow(i + 1);
+									var r = table.insertRow(rownum++);
 									var nickname = r.insertCell(0);
 									var joined = r.insertCell(1);
 									var website = r.insertCell(2);
@@ -260,8 +287,9 @@
 									var avgOPR = r.insertCell(4);
 									var avgDPR = r.insertCell(5);
 									var draft = r.insertCell(6);
-									draft.innerHTML = "<button id='" + teamnum + "' onclick='draftAnnouncement(this)'>Draft Team</button>";
-									
+									if(myTurn) {
+										draft.innerHTML = "<button id='" + teamnum + "' onclick='draftAnnouncement(this)'>Draft Team</button>";
+									}
 									tm.innerHTML = teamnum;
 									nickname.innerHTML = localStorage.getItem(teamnum + ":nickname");
 									joined.innerHTML = localStorage.getItem(teamnum + ":joined");

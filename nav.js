@@ -11,16 +11,16 @@ document.write(
 				<a href="./myTeam.php" class="menubartext">My Team</a>\
 			</div>\
 			<div id="league" class="menubar-none">\
-				<a href="./league.php" class="menubartext">League Home</a>\
+				<a href="./leagues.php" class="menubartext">League Home</a>\
 			</div>\
 			<div id="teams" class="menubar">\
 				<a href="./team.php" class="menubartext">Teams</a>\
 			</div>\
+			<div id="login" class="menubar menuBarRight">\
+				<a href="./login.php" class="menubartext">Login</a>\
+			</div>\
 			<div id="register" class="menubar menuBarRight">\
 				<a href="./register.php" class="menubartext">Register</a>\
-			</div>\
-			<div id="login" class="menubar">\
-				<a href="./login.php" class="menubartext">Login</a>\
 			</div>\
 			<div id="profile" class="menubar-none" style="display: none">\
 				<a id="profileName" href="./profile.php" class="menubartext" style="display: none"></a>\

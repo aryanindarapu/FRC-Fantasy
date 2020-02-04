@@ -2,13 +2,13 @@
 <html>
 	<head>
 		<title>FantasyFRC</title>
-        <link rel="stylesheet" type="text/css" href="fantasy.css?version=1">
+        <link rel="stylesheet" type="text/css" href="fantasy.css?version=2">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=1"></script>
+		<script src="fantasy.js?version=2"></script>
 		<link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
 	</head>
-	<body  style="background-color:#cccccc; font-family: 'Oswald', sans-serif; letter-spacing: .05em;">
-		<script src='nav.js?version=1'></script>
+	<body style="background-color:#cccccc; font-family: 'Oswald', sans-serif; letter-spacing: .05em;" onload="loggedIn();">
+		<script src='nav.js?version=2'></script>
 		<div class="net">
 			<div class="paper">
 				<h2>About</h2>
