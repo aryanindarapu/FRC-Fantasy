@@ -1,31 +1,109 @@
 <?php
 
-ini_set('display_errors',1);
+	ini_set('display_errors',1);
 	error_reporting(E_ALL);
 	
 	
 	$username = $_POST['username'];
+	$lCode = $_POST['leagueCode'];
 	$teamnum = $_POST['teamnum'];
 	$error;
 	$conn = mysqli_connect('localhost','loginUser','techhounds','fantasyfrc');
-	
+	$select = "SELECT * FROM " . $lCode . " ";
 	if(mysqli_connect_errno())
 	{
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
-	/* GET DIVISION OF USER */
-	$division;
-	$query = "SELECT * FROM divisions WHERE username='".$username."'";
-	
+	//Check if the person is in the league
+	$query = $select . "WHERE username='" . $username . "'";
 	$result = mysqli_query($conn, $query);
-	
-	if(mysqli_num_rows($result) === 0) {
-		$error = "RIP";
-	} else {
+	if(mysqli_num_rows($result) > 0) {
+		//This user is in the league
 		$row = mysqli_fetch_assoc($result);
-		$division = $row['division'];
+		$teamOne = $row["teamOne"];
+		$teamTwo = $row["teamTwo"];
+		$teamThree = $row["teamThree"];
+		$teamFour = $row["teamFour"];
+		
+		if(is_null($teamOne)) {
+			//We will use this team to draft to
+			$query = $select . "WHERE teamOne='" . $teamnum . "' OR teamTwo='" . $teamnum . "' OR teamThree='" . $teamnum . "' OR teamFour='" . $teamnum . "'";
+			$results = mysqli_query($conn, $query);
+			if(mysqli_num_rows($results) > 0) {
+				$row = mysqli_fetch_assoc($results);
+				mysqli_close($conn);
+				die("Error: " . $row["username"] . " has already drafted this team");
+			}
+			//Nobody else has drafted the team
+			$query = $select . "WHERE username='" . $username . "'";
+			$results = mysqli_query($conn, $query);
+			$row = mysqli_fetch_assoc($results);
+			$drafted = $row["drafted"];
+			$drafted++;
+			$query = "UPDATE " . $lCode . " SET teamOne='" . $teamnum . "', drafted=" . $drafted . " WHERE username='" . $username . "'";
+			mysqli_query($conn, $query);
+		} else if(is_null($teamTwo)) {
+			//We will use this team to draft to
+			$query = $select . "WHERE teamOne='" . $teamnum . "' OR teamTwo='" . $teamnum . "' OR teamThree='" . $teamnum . "' OR teamFour='" . $teamnum . "'";
+			$results = mysqli_query($conn, $query);
+			if(mysqli_num_rows($results) > 0) {
+				$row = mysqli_fetch_assoc($results);
+				mysqli_close($conn);
+				die("Error: " . $row["username"] . " has already drafted this team");
+			}
+			//Nobody else has drafted the team
+			$query = $select . "WHERE username='" . $username . "'";
+			$results = mysqli_query($conn, $query);
+			$row = mysqli_fetch_assoc($results);
+			$drafted = $row["drafted"];
+			$drafted++;
+			$query = "UPDATE " . $lCode . " SET teamTwo='" . $teamnum . "', drafted=" . $drafted . " WHERE username='" . $username . "'";
+			mysqli_query($conn, $query);
+		} else if(is_null($teamThree)) {
+			//We will use this team to draft to
+			$query = $select . "WHERE teamOne='" . $teamnum . "' OR teamTwo='" . $teamnum . "' OR teamThree='" . $teamnum . "' OR teamFour='" . $teamnum . "'";
+			$results = mysqli_query($conn, $query);
+			if(mysqli_num_rows($results) > 0) {
+				$row = mysqli_fetch_assoc($results);
+				mysqli_close($conn);
+				die("Error: " . $row["username"] . " has already drafted this team");
+			}
+			//Nobody else has drafted the team
+			$query = $select . "WHERE username='" . $username . "'";
+			$results = mysqli_query($conn, $query);
+			$row = mysqli_fetch_assoc($results);
+			$drafted = $row["drafted"];
+			$drafted++;
+			$query = "UPDATE " . $lCode . " SET teamThree='" . $teamnum . "', drafted=" . $drafted . " WHERE username='" . $username . "'";
+			mysqli_query($conn, $query);
+		} else if (is_null($teamFour)) {
+			//We will use this team to draft to
+			$query = $select . "WHERE teamOne='" . $teamnum . "' OR teamTwo='" . $teamnum . "' OR teamThree='" . $teamnum . "' OR teamFour='" . $teamnum . "'";
+			$results = mysqli_query($conn, $query);
+			if(mysqli_num_rows($results) > 0) {
+				$row = mysqli_fetch_assoc($results);
+				mysqli_close($conn);
+				die("Error: " . $row["username"] . " has already drafted this team");
+			}
+			//Nobody else has drafted the team
+			$query = $select . "WHERE username='" . $username . "'";
+			$results = mysqli_query($conn, $query);
+			$row = mysqli_fetch_assoc($results);
+			$drafted = $row["drafted"];
+			$drafted++;
+			$query = "UPDATE " . $lCode . " SET teamFour='" . $teamnum . "', drafted=" . $drafted . " WHERE username='" . $username . "'";
+			mysqli_query($conn, $query);
+		} else {
+			mysqli_close($conn);
+			die("You cannot draft anymore teams");
+		}
+		mysqli_close($conn);
+		
+	} else {
+		mysqli_close($conn);
+		die("Error Drafting: User is not in league");
 	}
-	//Now To update the table to draft the team for the person
-	$query = "UPDATE drafted_teams SET username ='".$username."' WHERE division='".$division."' AND team_num='".$teamnum."'";
-	mysqli_query($conn, $query);
+	
+  
+	
 ?>

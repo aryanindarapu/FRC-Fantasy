@@ -2,37 +2,53 @@
 <?php
 $error = null;
 $loggedIn = false;
-if(isset($_GET["r"])){
-	
-	header("Location:"."http://www.techhounds.com/FRC%20Fantasy/index.html");
-	
-}
 if(isset($_POST['username'])){
+	/*
+		$username set to form entered username
+		$password set to form entered password
+	*/
 	$username = $_POST['username'];
 	$password = $_POST['password'];
-
+	//Set $email as global
 	$email = true;
+	//Check with RegEx for email
 	if(preg_match('~(\w+)@(gmail|yahoo|icloud|hotmail|outlook|aol)(\.com|\.net)~', $username)) {
 		$email = true;
 	} else {
 		$email = false;
 	}
+	//Hash password using whirlpool
 	$hashed_password = hash('whirlpool', $password);
-	
+	//Connect to database
 	$conn = mysqli_connect('localhost','loginUser','techhounds','fantasyfrc');
-	
+	//State if error in connecting to database
 	if(mysqli_connect_errno())
 	{
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
+	//Set $query as global
 	$query = null;
+	//Select lines from database where either email or username is $username
 	if($email) {
 		$query = "SELECT * FROM fantasyusers WHERE email='".$username."'";
 	} else {
 		$query = "SELECT * FROM fantasyusers WHERE name='".$username."'";
 	}
+	//$result stores number of rows and information from each row that returns from fuction above
 	$result = mysqli_query($conn, $query);
 	
+	/*
+		If no rows match $username, return an error
+		If a row matches the $username value:
+			- select row identified above
+			- set $username to stored database username (Non-case-sensitivity purposes & so username will be stored and not email)
+			- set $dpass to hashed password stored in database
+			- Check if $dpass is equal to $hashed_password. If so:
+				- set $loggedIn to true
+				- set $online to 1 (true)
+				- set $query "online" value to 1 (true)
+				- sends $query to database, updating it
+	*/
 	if(mysqli_num_rows($result) === 0) {
 		$error = "Incorrect Username and/or Password";
 	} else {
@@ -46,72 +62,42 @@ if(isset($_POST['username'])){
 			mysqli_query($conn,$query);
 		}
 	}
-	
 }
 
+/*
+	If $loggedIn is true:
+		- echo $username to console
+		- set cookie with name "username" to value of logged in username from above function
+		- set cookie to expire in 30 days
+		- redirect to index (home) page
+*/
+if($loggedIn) {
+	$cookie_name = "username";
+	$cookie_value = $username;
+	echo "<script>console.log('" . $cookie_value . "');</script>";
+	setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
+	echo "<script>window.location.href = 'https://techhounds.com/FRC%20Fantasy/index.php'</script>";
+}
 ?>
 
 <html>
 	<head>
         <title>Login - FantasyFRC</title>
-		<link rel="stylesheet" type="text/css" href="fantasy.css?version=20">
+		<link rel="stylesheet" type="text/css" href="fantasy.css?version=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="fantasy.js?version=20"></script>
+		<script src="fantasy.js?version=1"></script>
+		<link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
 	</head>
-	<body style="background-color:#cccccc" onload="getCookie()">
-		<div id="navbar" class="navbar">
-			<div class="nl">
-				<a href="https://techhounds.com/FRC%20Fantasy/index.html"><img class="navLogo" src="finalColorFantasyLogo.png?version=1" /></a>
-			</div>
-			<div id="home" class="menubar">
-				<a href="https://techhounds.com/FRC%20Fantasy/index.html" class="menubartext">Home</a>
-			</div>
-			<div id="team" class="menubar">
-				<p class="menubartext">My Team</p>
-			</div>
-			<div id="league" class="menubar">
-				<a href="https://techhounds.com/FRC%20Fantasy/league.html" class="menubartext">League Home</a>
-			</div>
-			<div id="teams" class="menubar">
-				<p class="menubartext">Teams</p>
-			</div>
-			<div id="register" class="menubar menuBarRight">
-				<a href="https://techhounds.com/FRC%20Fantasy/register.php" class="menubartext">Register</a>
-			</div>
-			<div id="login" class="menubar menuBarRight">
-				<a href="https://techhounds.com/FRC%20Fantasy/login.php" class="menubartext">Login</a>
-			</div>
-			<div id="profile" class="menubar menuBarRight">
-				<p id="profileName" href="" class="menubartext"></p>
-			</div>
-			<div id="n2" class="n2">
-				<img id="navLogoMobile" class="navLogoMobile" src="finalColorFantasyLogo.png?version=1"/>
-			</div>
-			<div class="menubarbottom">
-					<p id="menubartextbottom" class="menubartextbottom" onclick="menufunction();">&#9586&#9585</p>
-			</div>
-		</div>
-		
-		<?php
-			if($loggedIn) {
-				$_COOKIE['username'] = $username;
-				setcookie("username",$username,time()+(2*24*60*60),'/');
-				echo "<div class='success'><p>Logged in. Redirecting in 5 seconds..</p></div>";
-				sleep(5);
-				header("Location:"."http://www.techhounds.com/FRC%20Fantasy/php/redirect.php?redirect=login");
-				exit();
-			} else if($error != null) {
-				echo "<div class='error'><p>".$error."</p></div>";
-			}
-		?>
+	<body style="background-color:#cccccc; font-family: 'Oswald', sans-serif; letter-spacing: .05em;" onload="loggedIn();">
+		<script src='nav.js?version=1'></script>
         <div class="box">
             <form method="post" name="login" action="">
-                <h1>Login</h1>
-                <label for="username">Username: </label>
-                <input name="username" id="username" type="text" /></br>
-                <label for="password">Password: </label>
-                <input name="password" id="password" type="password" /></br>
-                <input type="submit" value="Log In" onclick="loggedIn()"/>
+                <h1 class="registerHeader">Login</h1>
+				<label for="username" class="input">Username:</label></br>
+				<input name="username" id="username" placeholder="Username" type="text" class="registerTextBoxes" style="width:80%" required></br>
+				<label for="password" class="input">Password:</label></br>
+				<input name="password" id="password" placeholder="Password" type="password" class="registerTextBoxes" style="width:80%" required></br></br>
+				<input type="submit" value="Login" class="button"/>
             </form>
         </div>
 	</body>
