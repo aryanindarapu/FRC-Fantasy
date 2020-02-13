@@ -65,16 +65,13 @@ function loggedIn() {
 		document.getElementById("login").remove();
 		document.getElementById("register").removeChild(document.getElementById("register").childNodes[1]);
 		document.getElementById("register").remove();
-		document.getElementById("team").style.display = "inline-block";
-		document.getElementById("league").style.display = "inline-block";
-		document.getElementById("team").className = "menubar";
-		document.getElementById("league").className = "menubar";
-		document.getElementById("profile").className = "menubar menuBarRight";
-		document.getElementById("out").className = "menubar menuBarRight";
-		document.getElementById("profile").style.display = "inline-block";
-		document.getElementById("profileName").style.display = "inline-block";
+		document.getElementById("team").style.display = "inline";
+		document.getElementById("league").style.display = "inline";
+		document.getElementById("leagueButton").style.disabled = "false";
+		document.getElementById("profile").style.display = "inline";
+		document.getElementById("profileName").style.display = "inline";
 		document.getElementById("profileName").innerHTML = user;
-		document.getElementById("out").style.display = "inline-block";
-		document.getElementById("signOut").style.display = "inline-block";
+		document.getElementById("out").style.display = "inline";
+		document.getElementById("signout").style.display = "inline";
 	}
 }

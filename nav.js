@@ -1,41 +1,44 @@
 document.write(
- '<div onload="loggedIn();" id="navbar" class="navbar container">\
-		<div class = "row">\
-			<div class="nl">\
-				<a href="./index.php"><img class="navLogo" src="FantasyLogo000.png" \></a>\
-			</div>\
-			<div id="home" class="menubar">\
-				<a href="./index.php" class="menubartext">Home</a>\
-			</div>\
-			<div id="team" class="menubar-none">\
-				<a href="./myTeam.php" class="menubartext">My Team</a>\
-			</div>\
-			<div id="league" class="menubar-none">\
-				<a href="./leagues.php" class="menubartext">League Home</a>\
-			</div>\
-			<div id="teams" class="menubar-none">\
-				<a href="./team.php" class="menubartext">Teams</a>\
-			</div>\
-			<div id="login" class="menubar menuBarRight">\
-				<a href="./login.php" class="menubartext">Login</a>\
-			</div>\
-			<div id="register" class="menubar menuBarRight">\
-				<a href="./register.php" class="menubartext">Register</a>\
-			</div>\
-			<div id="profile" class="menubar-none" style="display: none">\
-				<a id="profileName" href="./profile.php" class="menubartext" style="display: none"></a>\
-			</div>\
-			<div id="out" class="menubar-none" style="display: none">\
-				<a id="signOut" href = "./signOut.php" class="menubartext" style="display: none">Sign Out</a>\
-			</div>\
-			<div id="n2" class="n2">\
-				<img id="navLogoMobile" class="navLogoMobile" src="./finalColorFantasyLogo.png?version=1"/>\
-			</div>\
-			<div class="menubarbottom">\
-					<p id="menubartextbottom" class="menubartextbottom" onclick="menufunction();">&#9586&#9585</p>\
-			</div>\
-		</div>\
-	</div>'
+'<nav onload="loggedIn();" class="navbar navbar-expand-lg navbar-dark bg-dark">\
+	<a class="navbar-brand" href="#">\
+		<img src="./FantasyLogo000.png" width="175" height="60" alt="">\
+	</a>\
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">\
+		<span style="color: #f1f1f1;"><i class="fas fa-bars"></i></span> \
+	</button>\
+	\
+	<div class="collapse navbar-collapse bg-dark" id="navbarNav">\
+		<ul class="navbar-nav mr-auto">\
+			<!--<li class="nav-item">\
+				<a class="nav-link text-white" href="./login.php">Login<span class="sr-only">(current)</span></a>\
+			</li>-->\
+			<li class="nav-item">\
+				<a class="nav-link text-white" href="./about.html">About</a>\
+			</li>\
+			<li id="team" style="display:none;" class="nav-item">\
+				<a class="nav-link text-white" href="./myTeam.php">My Team</a>\
+			</li>\
+			<li id="league" class="nav-item">\
+				<a class="nav-link text-white" href="./leagues.php">League Home</a>\
+			</li>\
+			</ul>\
+			\
+			<ul class="navbar-nav ml-auto">\
+			<li id="register" class="nav-item">\
+				<a class="nav-link text-white" href="./register.php">Register</a>\
+			</li>\
+			<li id="login" class="nav-item">\
+				<a class="nav-link text-white" href="./login.php">Log In</a>\
+			</li>\
+			<li id="profile" class="nav-item">\
+				<a id="profileName" class="nav-link text-white" href="./verify.php" style="display:none"></a>\
+			</li>\
+			<li id="out" class="nav-item">\
+				<a id="signout" class="nav-link text-white" style="display:none" href="./signOut.php">Sign Out</a>\
+			</li>\
+		</ul>\
+	</div>\
+</nav>'
 );
 
 //Writes the navbar to every page just add <script src="js/nav.js"></script>

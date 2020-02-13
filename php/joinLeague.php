@@ -21,11 +21,11 @@ if(mysqli_num_rows($results) !== 0) {
 	$row = mysqli_fetch_assoc($results);
 	//Check if the table is active
 	if($row["Active"] == 0) {
-		mysqli_close(0);
+		mysqli_close($conn);
 		die("LNA");
 	}
 } else {
-	mysqli_close(0);
+	mysqli_close($conn);
 	die("CPE");
 }
 
@@ -34,12 +34,12 @@ $query = "SELECT * FROM " . $leagueCode . " WHERE username='" . $username . "'";
 //Query and get the results, or die and throw an error
 $results = mysqli_query($conn,$query) or die ("QF");
 if(mysqli_num_rows($results) > 0) {
-	mysqli_close(0);
+	mysqli_close($conn);
 	die("AIL");
 }
 //Insert User into league table
 $query = "INSERT INTO " . $leagueCode . "(username) VALUES ('" . $username . "')";
 mysqli_query($conn, $query) or die("TUE");
-mysqli_close(0);
+mysqli_close($conn);
 echo "Success";
 ?>

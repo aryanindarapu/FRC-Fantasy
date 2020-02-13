@@ -54,8 +54,9 @@ if(isset($_POST["LeagueName"])) {
 		. "`teamTwo` TEXT,"
 		. "`teamThree` TEXT,"
 		. "`teamFour` TEXT,"
-		. "`Win` TEXT,"
-		. "`Loss` TEXT,"
+		. "`Win` INT NOT NULL DEFAULT 0,"
+		. "`Loss` INT NOT NULL DEFAULT 0,"
+		. "`Draw` INT NOT NULL DEFAULT 0,"
 		. "`Owner` BOOLEAN NOT NULL DEFAULT false,"
 		. "`drafted` INT NOT NULL DEFAULT 0,"
 		. "PRIMARY KEY (`username`))";
@@ -72,6 +73,7 @@ if(isset($_POST["LeagueName"])) {
 	//Generate and Output Link with the values
 	echo "https://www.techhounds.com/FRC%20Fantasy/join.php?id=" . $lID . "&code=" . $leagueCode . "&key=" . $hashed_password;
 	echo "<br><h2>DON'T LOSE IT! We cant help you get it back if you lose it!</h2>";
+	echo "<button class='button' href='../leagues.php'>Go Back. Make sure you saved the link!</button>";
 } else {
 	echo "You shouldn't be here";
 }

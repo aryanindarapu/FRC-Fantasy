@@ -9,12 +9,12 @@
 		//Redirect to login page
 		header("Location:login.php");
 	}
-	
+
 	//Now we have username, get League info
 	$league = "undetermined";
 	if(isset($_GET["league"])) {
 		$league = $_GET["league"];
-		
+
 	} else {
 		//Redirect to Leagues page
 		header("Location:./leagues.php");
@@ -25,26 +25,28 @@
 	if(mysqli_num_rows($result) < 1) {
 		//Invalid League Code
 		// TODO: Throw Error and redirect to leagues page
-		
+
 	}
 	$leagueInfo = mysqli_fetch_assoc($result);
 	$region = $leagueInfo["Region"];
 	$name = $leagueInfo["LeagueName"];
-	
-	
-	
+
+
+
 ?>
 <html>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
 	<title>Draft System</title>
-	<script src="draftAPI.js?version=1"></script>
+	<script src="draftAPI.js?version=12"></script>
 	<style>
 	body {
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
-		
+
 	}
 	table {
 		border-collapse: collapse;
@@ -82,11 +84,17 @@
 		background-color: #4a4a4a;
 	}
 	.nav nav { display: block; };
-	
+
 	</style>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
 <body>
-</script>
 <div class="nav">
 	<nav>
 		<ul>
@@ -99,14 +107,13 @@
 		<ul>
 	</nav>
 </div>
-	
+
 <input style="margin-top:20px" type="text" id="searchbar" style="width:200px" />
 <br>
 <ul id="currentTeams" style="display:none"></ul>
 <ul id="searchData" style="display:none"></ul>
-<table id="results-table" style="display:none"></br>
 <p id="usrVal" style="display:none;"></p>
-</table>
+
 <table id="drafting-table">
 	<tr>
 		<th>Nickname:</th>
@@ -156,7 +163,7 @@
 			var teamNum = document.getElementById("drafting-table").rows[row].cells[3].innerHTML;
 			var name = "<?php echo $username; ?>";
 			var leagueCode = "<?php echo $league; ?>";
-			
+
 			$.ajax({
 				url: 'draftTeam.php',
 				type: 'POST',
@@ -166,7 +173,7 @@
 				}
 			});
 			document.getElementById("drafting-table").deleteRow(row);
-			
+
 			var table = document.getElementById("drafting-table");
 			var length = document.getElementById("drafting-table").rows.length;
 			for(var i = length - 1; i >= 0; i--) {
@@ -177,15 +184,15 @@
 		} else {
 			alert("It is not your turn!")
 		}
-		
+
 	}
 	</script>
-	
+
 	<script>
 	//LOAD ALL DRAFTING DATA
 	localStorage.clear();
 	var refreshTable = setInterval(populateTable,3000);
-	
+
 	function populateTable() {
 		var username = "<?php echo $username; ?>";
 		var leagueCode = "<?php echo $league; ?>";
@@ -231,14 +238,14 @@
 										var avgOPR = r.insertCell(4);
 										var avgDPR = r.insertCell(5);
 										var draft = r.insertCell(6);
-										
+
 										nickname.innerHTML = aData[j].nickname;
 										joined.innerHTML = aData[j].rookie_year;
 										website.innerHTML = aData[j].website;
 										teamnum.innerHTML = tnum;
 										var oprNum = getTeamOPR(tnum);
 										var dprNum = getTeamDPR(tnum);
-										
+
 										avgOPR.innerHTML = oprNum;
 										avgDPR.innerHTML = dprNum;
 										if(myTurn) {
@@ -251,21 +258,21 @@
 										localStorage.setItem(tnum + ":website",aData[j].website);
 										teams.push(tnum);
 									}
-								}					
+								}
 							localStorage.setItem("teams",JSON.stringify(teams));
 						});
 					} else {
 						//Clear Table
-						
+
 						var ln = table.rows.length;
 						for(var i = ln - 1; i > 0; i--) {
 							table.deleteRow(i);
 						}
 						var teams = JSON.parse(localStorage.getItem("teams"));
-						
+
 							var rownum = 1;
 							for(var i = 0; i < teams.length; i++) {
-								var teamnum = teams[i];								
+								var teamnum = teams[i];
 								var found = false;
 								// YOU FORGOT TO PARSE THE JSON
 								var takenArr = JSON.parse(taken);
@@ -301,10 +308,10 @@
 					}
 				}
 			});
-		
+
 		}
-	
-	
+
+
 	</script>
 </body>
 </html>

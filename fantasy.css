@@ -5,6 +5,9 @@ html {
 
 body {
 	margin: 0;
+	background-color:#cccccc;
+	font-family: 'Oswald', sans-serif;
+	letter-spacing: .05em;
 }
 
 h1 {
@@ -116,7 +119,7 @@ input[type=submit] {
 }
 
 .menubartext:hover{
-	border-bottom: 3px solid orange;
+	border-bottom: 5px solid gray;
 	height:2em;
 }
 
@@ -134,7 +137,7 @@ input[type=submit] {
 }
 
 .menuBarRight {
-	float:right;
+	float:right !important;
 	width: 10%;
 	display: inline-block;
 	vertical-align: middle;
@@ -222,10 +225,18 @@ input[type=submit] {
 .box {
 	width: 300px;
 }
-.locationDropox{
+.locationDropbox{
 	position: relative;
 	display: inline-block;
+	margin-left: 30px;
+	height: 2em;
+	border-radius: 0.5em;
+	outline: none;
+	border: 3px solid #cccccc;
+	-webkit-transition: 0.5s;
+	transition: 0.5s;	
 }
+
 .leagueHeader{
 	font-family: 'Oswald', sans-serif;
 	text-align: center;
@@ -235,87 +246,38 @@ input[type=submit] {
 	padding-top: 2em;
 }
 
-/* Some responsive Code: */
-@media only screen and (max-width: 600px) {
-	.menubar {
-		display: none;
-		width: 100% !important;
-		margin: 0 auto;
-		border-bottom: 2px solid white;
-        font-size: 1em;
-		
-	}
-	.menuBarRight {
-		float: none;
-		display: none;
-		margin: 0 auto;
-        padding-top: 0px;
-	}
-	.navbar {
-		min-height: 81px;
-        height: 81px;
-		max-height: 400px;
-        border-bottom-left-radius: 1em;
-		border-bottom-right-radius: 1em;
-	}
-	
-	.navLogo, .nl {
-		display: none;
-	}
-	
-	.n2 {
-	height: 36px;
-	width: 100%;
-	display: block;
-	}
-	
-	.navLogoMobile {
-	height: 36px;
-	width: 80px;
-	display: block;
-	vertical-align: middle;
-	margin-left: auto;
-	margin-right: auto;
-	}
-	
-    .menubartext {
-        padding-top: 10px;
-    }
-    
-	.menubartext:hover {
+/* league page */
+.league {
+	background-color: #222222;
 	color: white;
-	}
-	
-	.menubarbottom {
-	height: 2em;
-	width: 100%;
+	padding: 10px;
+	display: block;
+	width: 80%;
+	margin: 0 auto;
+}
+.draftLink {
 	display: inline-block;
-	vertical-align: middle;
-	text-align: center;
-	display: inline-block;
-	font-weight: 300;
-	}
+	float: right;
+	text-decoration: none;
+	color: white;
 }
 
-@media only screen and (min-width: 601px) {
-    .menubar {
-        display: inline-block !important;
-    }
-    
-    .menubartext:hover {
-	color: #C0C0C0;
-    }
-    
-    .navbar {
-	   height:4em !important;
-       min-height: 0px !important;
-    }
-    
-    .n1, .navLogo {
-        display: inline-block !important;
-    }
-    
-    .n2, .navLogoMobile {
-        display: none !important;
-    }
+.leagueBtn1 {
+	border: none;
+	background-color: inherit;
+	padding: 4px 4px;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 20px;
+	color: white;
+}
+
+.leagueBtn2 {
+	border: none;
+	background-color: inherit;
+	padding: 4px 4px;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 20px;
+	color: white;
 }
